@@ -1,0 +1,140 @@
+"
+"vimプラグイン
+"
+set nonumber
+"" Vundle '''
+filetype off
+"set rtp+=/.vim/vundle.git
+set rtp+=~/.vim/bundle/vundle.git
+call vundle#rc()
+
+ "利用中のプラグインをBundle
+Bundle 'Shougo/vimfiler'
+Bundle 'gmarik/vundle'
+Bundle 'Shougo/neocomplcache.git'
+Bundle 'Shougo/neocomplcache-snippets-complete' 
+Bundle 'Shougo/unite.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'quickrun.vim'
+Bundle 'tyru/skk.vim'
+Bundle 'neco-look'
+Bundle 'thinca/vim-ref'
+"Bundle 'gundo'
+"Bundle 'project.vim'
+Bundle 'buftabs'
+Bundle 'thinca/vim-visualstar'
+Bundle 'fakeclip'
+Bundle 'YankRing.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'vim-scripts/DrawIt'
+Bundle 'tpope/vim-abolish'
+Bundle 'Align'
+
+"-----vimfiller設定------"
+"netrwの代わりにvimfilerを起動
+let g:vimfiler_as_default_explorer = 1
+"safemode無効化
+let g:vimfiler_safe_mode_by_default = 0
+
+"-----neocomplcache設定------"
+"vim起動と同時に起動
+let g:neocomplcache_enable_at_startup = 1
+"_の補完を有効化
+let g:neocomplcache_enable_underbar_completion = 1
+"smart case機能を有効化
+"let g:neocomplcache_enable_smart_case = 1
+"区切り補完の有効化
+"let g:neocomplcache_enable_underbar_completion = 1
+"シンタックスのキャッシュを最小文字数3に
+"let g:neocomplcache_min_syntax_length = 1
+
+"tabで補完をできるようにする
+function InsertTabWrapper()
+    if pumvisible()
+        return "\<c-n>"
+    endif
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
+        return "\<tab>"
+    elseif exists('&omnifunc') && &omnifunc == ''
+        return "\<c-n>"
+    else
+        return "\<c-x>\<c-o>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+
+"<C-k>でスニペットの展開
+imap <C-k> <Plug>(neocomplcache_snippets_expand)
+smap <C-k> <Plug>(neocomplcache_snippets_expand)
+
+"前回行われた補完をキャンセル
+"inoremap <expr><C-g> neocomplcache#undo_completion(
+"共通する部分を補完
+"inoremap <expr><C-l> neocomplcache#complete_common_string()
+"選択している候補を確定
+"inoremap <expr><C-y> neocomplcache#close_popup()
+"選択している候補をキャンセルし、ポップアップを閉じる
+"inoremap <expr><C-e> neocomplcache#cancel_popup()
+"------------------------------------------------
+
+"-----quickrun設定-----"
+"起動時は上下分割に
+set splitbelow
+"let g:quickrun_config={'*': {'split': ''}}
+nmap ,r <Plug>(quickrun)
+"-----skk.vim設定-----"
+"let skk_jisyo = expand('PATH_TO/.skk-jisyo')
+"let skk_large_jisyo = expand('PATH_TO/SKK-JISYO.L')
+"let skk_auto_save_jisyo = 1
+"set ambiwidth=double
+
+let g:skk_large_jisyo = expand('~/.vim/SKK-JISYO.L')	"辞書
+let g:skk_jisyo = expand('~/.vim/skk-jisyo')			"ユーザ辞書
+let g:skk_auto_save_jisyo = 1
+
+"-----buftabs.vim設定-----"
+"ファイル名だけ表示
+let buftabs_only_basename = 1
+"ステータスラインに表示
+let buftabs_in_statusline = 1
+
+"let skk_jisyo = expand('PATH_TO/.skk-jisyo')
+
+"-----QFixGrep設定-----"
+set runtimepath+=~/.vim/bundle/qfixapp/plugin/mygrep.vim
+
+"-----YankRing.vim設定-----"
+"記録する履歴件数を10件に制限する
+let g:yankring_max_history=10
+"ウィンドウの高さ調整
+let g:yankring_window_height=13
+"保存先の変更
+let g:yankring_history_dir=expand('$HOME')
+let g:yankring_history_file='.yankring_history'
+"yrでYRShowコマンドを入力
+nnoremap yr :YRShow<CR>
+
+"-----EasyMotion設定-----"
+"<Loader><Loader>を<Shift>に設定
+let g:EasyMotion_leader_key = '<Space><Space>'
+
+"-----indent-guides設定-----"
+"indent-guidesプラグインを有効にする
+"let g:indent_guides_enable_on_vim_startup = 1
+"ハイライト設定を変更し、ガイドを見やすくする
+"let g:indent_guides_change_percent = 20 
+"let g:indent_guides_guide_size = 1
+
+"-----Arign設定-----"
+let g:Align_xstrlen = 3
+let g:DrChiptopLvlMenu = ''
+
+"vim-ref
+autocmd FileType text call ref#register_detection('_', 'alc')	"textならKでalcを使う
+"alc
+let g:ref_alc_cmd = 'w3m -dump %s'								"w3mを使う
+let g:ref_alc_start_linenumber = 39								"表示開始位置
+
+

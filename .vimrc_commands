@@ -1,0 +1,57 @@
+"ファイルを開いたときに、ファイルを閉じた時のカーソル位置までカーソルを移動
+:au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+"永続的Undoが可能になる
+"if has('persistent_undo')
+"	set undodir=~/.vim/vim_undo_history
+"	set undofile
+"endif
+
+"挿入モードとノーマルモードでステータスラインの色を変更する
+let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg= Darkblue cterm=None ctermfg=white ctermbg=Darkblue'
+
+if has('syntax')
+  augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * call s:StatusLine('Enter')
+    autocmd InsertLeave * call s:StatusLine('Leave')
+  augroup END
+endif
+
+let s:slhlcmd = ''
+function! s:StatusLine(mode)
+  if a:mode == 'Enter'
+    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+    silent exec g:hi_insert
+  else
+    highlight clear StatusLine
+    silent exec s:slhlcmd
+  endif
+endfunction
+
+function! s:GetHighlight(hi)
+  redir => hl
+  exec 'highlight '.a:hi
+  redir END
+  let hl = substitute(hl, '[\r\n]', '', 'g')
+  let hl = substitute(hl, 'xxx', '', '')
+  return hl
+endfunction
+
+" ファイル別にundo履歴を残す
+	au BufReadPost * call ReadUndo()
+	au BufWritePost * call WriteUndo()
+	func ReadUndo()
+	  if filereadable(expand('%:h'). '/.undo_history/' . expand('%:t'))
+	    rundo %:h/.undo_history/%:t
+	  endif
+	endfunc
+	func WriteUndo()
+	  let dirname = expand('%:h') . '/.undo_history'
+	  if !isdirectory(dirname)
+	    call mkdir(dirname)
+	  endif
+	  wundo %:h/.undo_history/%:t
+	endfunc
+
+

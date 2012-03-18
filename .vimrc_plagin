@@ -8,7 +8,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle.git
 call vundle#rc()
 
- "利用中のプラグインをBundle
+"利用中のプラグインをBundle
 Bundle 'Shougo/vimfiler'
 Bundle 'gmarik/vundle'
 Bundle 'Shougo/neocomplcache.git'
@@ -102,7 +102,7 @@ let buftabs_in_statusline = 1
 
 "let skk_jisyo = expand('PATH_TO/.skk-jisyo')
 
-"-----QFixGrep設定-----"
+"----QFixGrep設定-----"
 set runtimepath+=~/.vim/bundle/qfixapp/plugin/mygrep.vim
 
 "-----YankRing.vim設定-----"
@@ -132,9 +132,16 @@ let g:Align_xstrlen = 3
 let g:DrChiptopLvlMenu = ''
 
 "vim-ref
+nmap ra :<C-u>Ref alc<Space> 
+nmap rr :<C-u>Ref refe<Space>
+nmap rp :<C-u>Ref phpmanual<Space> 
 autocmd FileType text call ref#register_detection('_', 'alc')	"textならKでalcを使う
-"alc
-let g:ref_alc_cmd = 'w3m -dump %s'								"w3mを使う
-let g:ref_alc_start_linenumber = 39								"表示開始位置
+let g:ref_ruby_cmd = "/Users/e115703/Documents/Reference/rubyrefm/refe-1_9_2""Rubyのrefefileパス
+let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
 
+"alc
+let g:ref_alc_cmd = 'w3m -dump %s' "w3mを使う
+let g:ref_alc_start_linenumber = 3 "表示開始位置
+let g:ref_alc_start_linenumber = 39 " 表示する行数
+let g:ref_use_vimproc = 0   " vimprocをインストールしてない場合は0を指定
 

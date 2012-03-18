@@ -2,12 +2,12 @@
 "分割ファイル読み込み
 "---------------------------------------------------------------------------
 ".vimrc_plaginがある場合、読み込む
-if filereadable(expand('~/dot_files/.vimrc_plagin'))
+if filereadable(expand('~/.vimrc_plagin'))
 	source ~/.vimrc_plagin
 endif
 
 ".vimrc_commandsがある場合読み込む
-if filereadable(expand('~/dot_files/.vimrc_commands'))
+if filereadable(expand('~/.vimrc_commands'))
 	source ~/.vimrc_commands
 endif
 

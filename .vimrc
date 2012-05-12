@@ -15,14 +15,23 @@ endif
 "各種設定
 "---------------------------------------------------------------------------
 filetype plugin indent on "filetype
+
+
+autocmd FileType * setlocal formatoptions-=ro "全てのファイルの設定
 autocmd FileType ruby set tabstop=2 shiftwidth=2 expandtab "rubyの時の設定
-autocmd BufNewFile *.rb 0r ~/.vim/temp/ruby.rb "template
+autocmd BufNewFile *.rb 0r ~/.vim/template/ruby.rb "rbのテンプレート
+autocmd BufNewFile *.sh 0r ~/.vim/template/shell.sh "shのテンプレート
+autocmd BufNewFile *.html 0r ~/.vim/template/javascript.html "shのテンプレート
+
+set tabstop=2 expandtab "tabをスペースに置き換える
 
 set ignorecase "検索時大文字小文字を区別しない。
 set smartcase "検索後に大文字小文字が混在しているときは区別する
 
 set incsearch "インクリメンタルサーチを常に有効にする
 set backspace=indent,eol,start "オートインデント、改行、insertモード開始直後にBSキーで削除できるようにする
+
+
 set nostartofline "移動コマンドを使ったとき、行頭に移動しない
 
 set clipboard=unnamed,autoselect "Visualmodeでコピーした内容をクリップボードに貼り付ける
@@ -116,3 +125,7 @@ set pastetoggle=<C-p> "pasteモード切り替え
 
 set formatoptions+=mM "日本語の行の連結時には空白を入力しない。
 
+set clipboard=unnamed,autoselect
+
+au BufWritePre /tmp/* setlocal noundofile
+        

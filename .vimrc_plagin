@@ -8,6 +8,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle.git
 call vundle#rc()
 
+
 "利用中のプラグインをBundle
 Bundle 'Shougo/vimfiler'
 Bundle 'gmarik/vundle'
@@ -30,7 +31,9 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'vim-scripts/DrawIt'
 Bundle 'tpope/vim-abolish'
 Bundle 'Align'
-
+Bundle 'sigwyg/Vim-Starter-kit'
+Bundle 'superbrothers/vim-vimperator'
+Bundle 'chrome.vim'
 "-----vimfiller設定------"
 "netrwの代わりにvimfilerを起動
 let g:vimfiler_as_default_explorer = 1
@@ -42,29 +45,16 @@ let g:vimfiler_safe_mode_by_default = 0
 let g:neocomplcache_enable_at_startup = 1
 "_の補完を有効化
 let g:neocomplcache_enable_underbar_completion = 1
+""シンタックスのキャッシュを最小文字数3に
+let g:neocomplcache_min_syntax_length = 3
 "smart case機能を有効化
 "let g:neocomplcache_enable_smart_case = 1
 "区切り補完の有効化
 "let g:neocomplcache_enable_underbar_completion = 1
-"シンタックスのキャッシュを最小文字数3に
-"let g:neocomplcache_min_syntax_length = 1
-
+"snippet ファイルの保存先
+let g:neocomplcache_snippets_dir='~/.vim/snippets'
 "tabで補完をできるようにする
-function InsertTabWrapper()
-    if pumvisible()
-        return "\<c-n>"
-    endif
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
-        return "\<tab>"
-    elseif exists('&omnifunc') && &omnifunc == ''
-        return "\<c-n>"
-    else
-        return "\<c-x>\<c-o>"
-    endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-
+noremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "<C-k>でスニペットの展開
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
@@ -80,10 +70,13 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 "------------------------------------------------
 
 "-----quickrun設定-----"
-"起動時は上下分割に
+"起動時は上に
 set splitbelow
+"起動時は左側に
 "let g:quickrun_config={'*': {'split': ''}}
+" 横分割をするようにする
 nmap ,r <Plug>(quickrun)
+
 "-----skk.vim設定-----"
 "let skk_jisyo = expand('PATH_TO/.skk-jisyo')
 "let skk_large_jisyo = expand('PATH_TO/SKK-JISYO.L')
@@ -131,17 +124,28 @@ let g:EasyMotion_leader_key = '<Space><Space>'
 let g:Align_xstrlen = 3
 let g:DrChiptopLvlMenu = ''
 
-"vim-ref
+"-----vim-ref設定-----"
 nmap ra :<C-u>Ref alc<Space> 
 nmap rr :<C-u>Ref refe<Space>
 nmap rp :<C-u>Ref phpmanual<Space> 
+
 autocmd FileType text call ref#register_detection('_', 'alc')	"textならKでalcを使う
 let g:ref_ruby_cmd = "/Users/e115703/Documents/Reference/rubyrefm/refe-1_9_2""Rubyのrefefileパス
 let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
 
-"alc
+"-----alc設定-----"
 let g:ref_alc_cmd = 'w3m -dump %s' "w3mを使う
 let g:ref_alc_start_linenumber = 3 "表示開始位置
 let g:ref_alc_start_linenumber = 39 " 表示する行数
 let g:ref_use_vimproc = 0   " vimprocをインストールしてない場合は0を指定
+
+
+"-----Vim-Starter-kit設定----"
+"永続的Undo
+if has('persistent_undo')
+    set undofile
+    set undodir=./.vimundo,~/.vim/undo
+endif
+
+
 

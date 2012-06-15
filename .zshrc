@@ -63,7 +63,7 @@ case ${UID} in
     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT} "
     ;;
   *)
-    PROMPT="%{[32m%}%// %%%{[m%} "
+    PROMPT="%{[32m%}[%~] %%%{[m%} "
     PROMPT2="%{[32m%}%_%%%{[m%} "
     SPROMPT="%{[33m%}%r is correct? [n,y,a,e]:%{[m%} "
     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 

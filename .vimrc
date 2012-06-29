@@ -25,7 +25,6 @@ autocmd BufNewFile *.html 0r ~/.vim/template/javascript.html "shのテンプレ�
 
 set tabstop=2 expandtab "tabをスペースに置き換える
 
-set ignorecase "検索時大文字小文字を区別しない。
 set smartcase "検索後に大文字小文字が混在しているときは区別する
 
 set incsearch "インクリメンタルサーチを常に有効にする
@@ -44,13 +43,6 @@ set mouse=a "全てのモードでマウスを有効化
 "---------------------------------------------------------------------------
 set number "行番号表示
 set visualbell "ビープ音の代わりにビジュアルベル(画面フラッシュ)を用いる
-
-set cmdheight=2 "コマンドラインの高さを2行にする
-
-"ステータスラインを常に表示
-set laststatus=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-
 set autoindent "オートインデントをセット
 set shiftwidth=2 "オートインデントの時インデントする文字数
 nnoremap<C-L> :nohl<CR><C-L> "<C-L>で検索後の強調表示を切る
@@ -87,15 +79,28 @@ let versdiff_no_resize=1 " バックアップファイルとの比較でウィ�
 map <F5>  :split<C-M>
 map <F6>  :bp<C-M>
 map <F7>  :bn<C-M>
-map <C-j> <C-W>j<C-w>_
-map <C-k> <C-W>k<C-w>_
-map <C-h> <C-w>h<C-w>_
-map <C-l> <C-w>l<C-w>_
+map <S-J> <C-W>j
+map <S-k> <C-W>k
+map <S-h> <C-w>h
+map <S-l> <C-w>l
+map > <C-W>3>
+map < <C-W>3<
+map -  <C-W>3-
+map + <C-W>3+
+map w <C-W>x
+map <S-t> gt
 
 "----ノーマルモードでのキーリマップ----
-nnoremap Y y$
+nnoremap <CR> i<CR><ESC>
 nnoremap <C-a> 0
 nnoremap <C-e> $
+"nnoremap <C-k> d$
+nnoremap <C-i> <C-a>h 
+nnoremap <C-l> <C-x>
+nnoremap <S-a> gg<C-a>yG
+nnoremap = gg=Gu<C-r>
+nnoremap sv :source ~/dot-files/.vimrc<CR>
+nnoremap bi :BundleInstall<C-r>
 
 "gpでペーストしたテキストを再選択できるようにする
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -103,8 +108,9 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 "ヤンクした文字列でカーソル位置の単語を置換するコマンド
 nnoremap <silent> cy ce<C-r>0<ESC>:let@1<CR>:nohr<CR>
 nnoremap <silent> <silent> ciy ciw<C-r>0<ESC>:let@1<CR>:nohr<CR>
-
-nnoremap date :r!date<Enter> "日付を挿入する
+nnoremap p <S-o>p
+"日付を挿入する
+nnoremap date :r!date<Enter> 
 
 "----インサートモードでのキーリマップ----
 inoremap <C-a> <Home>

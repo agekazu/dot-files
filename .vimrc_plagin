@@ -33,7 +33,21 @@ Bundle 'tpope/vim-abolish'
 Bundle 'Align'
 Bundle 'sigwyg/Vim-Starter-kit'
 Bundle 'superbrothers/vim-vimperator'
-Bundle 'chrome.vim'
+Bundle 'css_color.vim'
+Bundle 'matchit.zip'
+Bundle 'mattn/sonictemplate-vim'
+Bundle 'Shougo/vimshell'
+Bundle 'Shougo/vimproc'
+Bundle 'anekos/char-counter-vim'
+Bundle 'buftabs'
+Bundle 'current-func-info.vim'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'taku-o/vim-2html-config'
+Bundle 'fuenor/vim-wordcount'
+Bundle 'fuenor/qfixhowm'
+Bundle 'tpope/vim-markdown'
+Bundle 'mattn/mkdpreview-vim'
 "-----vimfiller設定------"
 "netrwの代わりにvimfilerを起動
 let g:vimfiler_as_default_explorer = 1
@@ -76,6 +90,8 @@ set splitbelow
 "let g:quickrun_config={'*': {'split': ''}}
 " 横分割をするようにする
 nmap ,r <Plug>(quickrun)
+let g:quickrun_config = {}
+nnoremap ,h :!name=`basename % .mkd` && pandoc -f markdown -t html -o ${name}.html "%" && open ${name}.html<CR><CR>
 
 "-----skk.vim設定-----"
 "let skk_jisyo = expand('PATH_TO/.skk-jisyo')
@@ -143,9 +159,56 @@ let g:ref_use_vimproc = 0   " vimprocをインストールしてない場合は0
 "-----Vim-Starter-kit設定----"
 "永続的Undo
 if has('persistent_undo')
-    set undofile
-    set undodir=./.vimundo,~/.vim/undo
+  set undofile
+  set undodir=./.vimundo,~/.vim/undo
 endif
 
+"-----vim-latex設定----"
+"VIM-LaTeXを利用するファイルの拡張子を設定する
+let g:tex_flavor='latex'
+" *.tex を追加
+au BufNewFile,BufRead *.tex,*.latex,*.sty,*.dtx,*.ltx,*.bbl setf tex
+set grepprg=grep\ -nH\ $*
+"" .texファイルのコンパイルプログラムを指定(エラーで停止しないようオプション指定)
+let g:Tex_CompileRule_dvi = 'platex --interaction=nonstopmode $*'
+"標準で.pdfにコンパイル
+let g:Tex_DefaultTargetFormat = 'pdf' 
+"" pdfファイル生成のための依存関係を記述。
+"" 以下の設定の場合、ターゲットにpdfを指定して\llでコンパイルすると、
+"" まず.dviファイルが作られ、次にそれをもとに.pdfファイルが作られる
+let g:Tex_FormatDependency_pdf = 'dvi,pdf'
+"" .dviファイルのコンパイルプログラムを指定
+let g:Tex_CompileRule_pdf = '/usr/local/bin/dvipdfmx $*.dvi'
+"" .pdfファイルのビュープログラムを指定
+let g:Tex_ViewRule_pdf = 'open -a Preview' 
+"---------------------------------------------
 
+"-----VimShell設定----"
+let g:vimshell_interactive_update_time = 10
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+
+"----vimshell map設定----"
+nnoremap <silent> vs :VimShell<CR>
+nnoremap <silent> vsc :VimShellCreate<CR>
+nnoremap <silent> vp :VimShellPop<CR>
+nnoremap <silent> vt :VimShellTab<CR>
+
+"----current-func-info.vim----"
+let &statusline = '[%{cfi#get_func_name()}()]'
+
+
+"----vim-wordcount---"
+set statusline+=[wc:%{WordCount()}]
+set updatetime=500
+
+
+"----qfixhowm----"
+let hown_dir = '/Users/e115703/Dropbox/vim/howm_dir'
+let hown_fileenconfig = 'utf-8'
+let qfixmemo_fileformat = 'unix'
+let qfixmemo_filetype = ''
+let qfixmemo_template = [
+  \'%TITLE%  %TAG%',
+  \""
+  \]
 

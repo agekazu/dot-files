@@ -2,8 +2,8 @@
 :au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 "version7.3以上なら永続的undoを有効にする
-  set undodir=~/.vim/undo/
-  set undofile
+set undodir=~/.vim/undo/
+set undofile
 "挿入モードとノーマルモードでステータスラインの色を変更する
 let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg= Darkblue cterm=None ctermfg=white ctermbg=Darkblue'
 
@@ -35,6 +35,10 @@ function! s:GetHighlight(hi)
   return hl
 endfunction
 
+
+"ステータスラインを常に表示
+set laststatus=2
+set statusline=%t\ %m%r%h%w[%Y][%{&fenc}][%{&ff}]%=%c,%l%11p%%
 
 "" ファイル別にundo履歴を残す
 "au BufReadPost * call ReadUndo()

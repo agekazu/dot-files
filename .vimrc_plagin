@@ -1,11 +1,10 @@
 "
 "vimプラグイン
 "
-set nonumber
+set nocompatible
 "" Vundle '''
 filetype off
-"set rtp+=/.vim/vundle.git
-set rtp+=~/.vim/bundle/vundle.git
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 
@@ -15,13 +14,11 @@ Bundle 'gmarik/vundle'
 Bundle 'Shougo/neocomplcache.git'
 Bundle 'Shougo/neocomplcache-snippets-complete' 
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'quickrun.vim'
-Bundle 'tyru/skk.vim'
-Bundle 'neco-look'
+Bundle 'ujihisa/neco-look'
 Bundle 'thinca/vim-ref'
-"Bundle 'gundo'
-"Bundle 'project.vim'
 Bundle 'buftabs'
 Bundle 'thinca/vim-visualstar'
 Bundle 'fakeclip'
@@ -31,23 +28,30 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'vim-scripts/DrawIt'
 Bundle 'tpope/vim-abolish'
 Bundle 'Align'
-Bundle 'sigwyg/Vim-Starter-kit'
 Bundle 'superbrothers/vim-vimperator'
 Bundle 'css_color.vim'
 Bundle 'matchit.zip'
 Bundle 'mattn/sonictemplate-vim'
-Bundle 'Shougo/vimshell'
 Bundle 'Shougo/vimproc'
 Bundle 'anekos/char-counter-vim'
-Bundle 'buftabs'
 Bundle 'current-func-info.vim'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'taku-o/vim-2html-config'
-Bundle 'fuenor/vim-wordcount'
 Bundle 'fuenor/qfixhowm'
 Bundle 'tpope/vim-markdown'
 Bundle 'mattn/mkdpreview-vim'
+Bundle 'smartchr'
+Bundle 'vim-toggle'
+"Bundle 'tyru/eskk.vim'
+Bundle 'tyru/skk.vim'
+Bundle 'Shougo/vimshell'
+"Bundle 'vimlatex'
+
+"-----vundle設定-----"
+nnoremap <silent> bi :BundleInstall<CR>
+
+
 "-----vimfiller設定------"
 "netrwの代わりにvimfilerを起動
 let g:vimfiler_as_default_explorer = 1
@@ -83,27 +87,81 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 "inoremap <expr><C-e> neocomplcache#cancel_popup()
 "------------------------------------------------
 
+"-----unite.vim-----'
+" バッファ一覧
+nnoremap <silent> <C-u><C-b> :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> <C-u><C-f> :<C-u>UniteWithBufferDir -buffer-name=files -unite-action-openable=split file<CR>
+" レジスタ一覧
+nnoremap <silent> <C-u><C-r> :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> <C-u><C-m> :<C-u>Unite file_mru<CR>
+" 常用セット
+nnoremap <silent> <C-u><C-u> :<C-u>Unite buffer file_mru<CR>
+" 全部乗せ
+nnoremap <silent> <C-u><C-a> :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> <C-u><C-g> :<C-u>Unite grep<CR>
+
+" Uniteを開く時、垂直分割で開く
+let g:unite_enable_split_vertically=1
+
+"" ファイルを開く時、ウィンドウを分割して開く
+"au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+"au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+
+" ファイルを開く時、ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+
 "-----quickrun設定-----"
 "起動時は上に
 set splitbelow
 "起動時は左側に
 "let g:quickrun_config={'*': {'split': ''}}
 " 横分割をするようにする
-nmap ,r <Plug>(quickrun)
+nmap ,r <Plug>(quickrun)o
 let g:quickrun_config = {}
-nnoremap ,h :!name=`basename % .mkd` && pandoc -f markdown -t html -o ${name}.html "%" && open ${name}.html<CR><CR>
-
-"-----skk.vim設定-----"
-"let skk_jisyo = expand('PATH_TO/.skk-jisyo')
-"let skk_large_jisyo = expand('PATH_TO/SKK-JISYO.L')
-"let skk_auto_save_jisyo = 1
-"set ambiwidth=double
-
-let g:skk_large_jisyo = expand('~/.vim/SKK-JISYO.L')	"辞書
-let g:skk_jisyo = expand('~/.vim/skk-jisyo')			"ユーザ辞書
-let g:skk_auto_save_jisyo = 1
+nnoremap ,h :!name=`basename % .md` && pandoc -f markdown -t html -o ${name}.html "%" && open ${name}.html<CR><CR>
 
 "-----buftabs.vim設定-----"
+"ファイル名だけ表示
+let buftabs_only_basename=1
+"ステータスラインに表示
+let buftabs_in_statusline=1 
+nnoremap <silent> bn :bnext<CR>
+nnoremap <silent> bp :bprev<CR>
+
+
+"-----skk.vim設定-----"
+"imap <C-j> <Plug>(skk-toggle-im)
+let g:skk_jisyo=expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.L')
+let g:skk_large_jisyo=expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.utf-8')
+let skk_keep_state=0
+let skk_egg_like_newline=1
+let skk_show_annotation=1
+let skk_use_face=1
+
+"-----eskk.vim設定-----"
+"let g:eskk#directory="~/.vim/bundle/eskk.vim/"
+"let g:eskk#directory={'path':"~/Library/Application Support/AquaSKK/skk-jisyo.utf8",'sorted':1,'encoding':'utf-8',}
+"let g:eskk#large_dictionary={'path':"~/.vim/bundle/eskk.vim/SKK-JISYO.L",'sorted':1,'encoding':'utf-8',}
+"
+"if has('vim_starting')
+"  let g:eskk_dictionary='~/Dropbox/skk/user-jisyo'
+"
+"  if has('mac')
+"    let g:eskk_large_dictionary='~/.vim/bundle/eskk.vim/SKK-JISYO.L'
+"  elseif has('win32') || has('win64')
+"    let g:eskk_large_dictionary="/SKK_JISYO.L"
+"  else
+"  endif
+"endif
+"
+"let g:eskk_debug=0
+"let g:eskk_egg_like_newline=1
+"let g:eskk_revert_henkan_style="okuri"
+"let g:eskk#enable_completion=1
+
 "ファイル名だけ表示
 let buftabs_only_basename = 1
 "ステータスラインに表示
@@ -145,7 +203,7 @@ nmap ra :<C-u>Ref alc<Space>
 nmap rr :<C-u>Ref refe<Space>
 nmap rp :<C-u>Ref phpmanual<Space> 
 
-autocmd FileType text call ref#register_detection('_', 'alc')	"textならKでalcを使う
+autocmd FileType text call ref#register_detection('_', 'alc') "textならKでalcを使う
 let g:ref_ruby_cmd = "/Users/e115703/Documents/Reference/rubyrefm/refe-1_9_2""Rubyのrefefileパス
 let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
 
@@ -156,12 +214,6 @@ let g:ref_alc_start_linenumber = 39 " 表示する行数
 let g:ref_use_vimproc = 0   " vimprocをインストールしてない場合は0を指定
 
 
-"-----Vim-Starter-kit設定----"
-"永続的Undo
-if has('persistent_undo')
-  set undofile
-  set undodir=./.vimundo,~/.vim/undo
-endif
 
 "-----vim-latex設定----"
 "VIM-LaTeXを利用するファイルの拡張子を設定する
@@ -188,7 +240,6 @@ let g:vimshell_interactive_update_time = 10
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
 "----vimshell map設定----"
-nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 nnoremap <silent> vt :VimShellTab<CR>
@@ -208,7 +259,16 @@ let hown_fileenconfig = 'utf-8'
 let qfixmemo_fileformat = 'unix'
 let qfixmemo_filetype = ''
 let qfixmemo_template = [
-  \'%TITLE%  %TAG%',
-  \""
-  \]
+      \'%TITLE%  %TAG%',
+      \""
+      \]
+
+"----smartchr----"
+inoremap <expr> = smartchr#loop('=',' = ',' == ')
+inoremap <expr> , smartchr#one_of(', ', ',')
+inoremap <expr> + smartchr#one_of('+', ' + ')
+inoremap <expr> - smartchr#one_of('-', ' - ')
+"inoremap <expr> * smartchr#one_of('*', ' * ')
+inoremap <expr> , smartchr#one_of(', ',',')
+inoremap <expr> / smartchr#loop('/', '// ', '//')
 

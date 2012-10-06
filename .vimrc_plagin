@@ -6,51 +6,35 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
-
 "利用中のプラグインをBundle
 Bundle 'Shougo/vimfiler'
 Bundle 'gmarik/vundle'
-Bundle 'Shougo/neocomplcache.git'
+Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neocomplcache-snippets-complete' 
 Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'quickrun.vim'
 Bundle 'ujihisa/neco-look'
 Bundle 'thinca/vim-ref'
-Bundle 'buftabs'
-Bundle 'thinca/vim-visualstar'
-Bundle 'fakeclip'
-Bundle 'YankRing.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'vim-scripts/DrawIt'
-Bundle 'tpope/vim-abolish'
-Bundle 'Align'
-Bundle 'superbrothers/vim-vimperator'
-Bundle 'css_color.vim'
-Bundle 'matchit.zip'
-Bundle 'mattn/sonictemplate-vim'
-Bundle 'Shougo/vimproc'
-Bundle 'anekos/char-counter-vim'
-Bundle 'current-func-info.vim'
-Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
-Bundle 'taku-o/vim-2html-config'
-Bundle 'fuenor/qfixhowm'
-Bundle 'tpope/vim-markdown'
-Bundle 'mattn/mkdpreview-vim'
-Bundle 'smartchr'
-Bundle 'vim-toggle'
-"Bundle 'tyru/eskk.vim'
+Bundle 'Shougo/vimproc'
 Bundle 'tyru/skk.vim'
 Bundle 'Shougo/vimshell'
-"Bundle 'vimlatex'
+Bundle 'matchit.zip'
+Bundle 'ZenCoding.vim'
+Bundle 'surround.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'tyru/caw.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'osyo-manga/unite-quickfix'
+Bundle 'osyo-manga/shabadou.vim'
+Bundle 'osyo-manga/vim-watchdogs'
+Bundle 'jceb/vim-hier'
+Bundle 'scrooloose/syntastic'
+
+
 
 "-----vundle設定-----"
 nnoremap <silent> bi :BundleInstall<CR>
-
 
 "-----vimfiller設定------"
 "netrwの代わりにvimfilerを起動
@@ -59,122 +43,116 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 
 "-----neocomplcache設定------"
-"vim起動と同時に起動
 let g:neocomplcache_enable_at_startup = 1
-"_の補完を有効化
 let g:neocomplcache_enable_underbar_completion = 1
-""シンタックスのキャッシュを最小文字数3に
-let g:neocomplcache_min_syntax_length = 3
+
+"vim起動と同時に起動
+"_の補完を有効化
 "smart case機能を有効化
 "let g:neocomplcache_enable_smart_case = 1
 "区切り補完の有効化
 "let g:neocomplcache_enable_underbar_completion = 1
 "snippet ファイルの保存先
 let g:neocomplcache_snippets_dir='~/.vim/snippets'
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
 "tabで補完をできるようにする
 noremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "<C-k>でスニペットの展開
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
-
-"前回行われた補完をキャンセル
-"inoremap <expr><C-g> neocomplcache#undo_completion(
-"共通する部分を補完
-"inoremap <expr><C-l> neocomplcache#complete_common_string()
-"選択している候補を確定
-"inoremap <expr><C-y> neocomplcache#close_popup()
-"選択している候補をキャンセルし、ポップアップを閉じる
-"inoremap <expr><C-e> neocomplcache#cancel_popup()
-"------------------------------------------------
 
 "-----unite.vim-----'
-" バッファ一覧
-nnoremap <silent> <C-u><C-b> :<C-u>Unite buffer<CR>
-" ファイル一覧
-nnoremap <silent> <C-u><C-f> :<C-u>UniteWithBufferDir -buffer-name=files -unite-action-openable=split file<CR>
-" レジスタ一覧
-nnoremap <silent> <C-u><C-r> :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> <C-u><C-m> :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> <C-u><C-u> :<C-u>Unite buffer file_mru<CR>
-" 全部乗せ
-nnoremap <silent> <C-u><C-a> :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> <C-u><C-g> :<C-u>Unite grep<CR>
-
 " Uniteを開く時、垂直分割で開く
 let g:unite_enable_split_vertically=1
+
+" バッファ一覧
+noremap <silent>,b :<C-u>Unite buffer<CR>
+" grep
+nnoremap <silent>,g :<C-u><C-g> :<C-u>Unite grep<CR>
+" 最近使ったファイルの一覧
+noremap <silent>,z :<C-u>Unite file_mru<CR>
+" ファイル一覧
+noremap <silent>,f :<C-u>Unite -buffer-name=file file<CR>
+" レジスタ一覧
+nnoremap <silent>,,r :<C-u>Unite -buffer-name=register register<CR>
+" 常用セット
+nnoremap <silent>,a :<C-u>Unite buffer file_mru<CR>
+" 全部乗せ
+nnoremap <silent>,all :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+
+"uniteを開いている間のキーマッピング
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  "ESCでuniteを終了
+  nmap <buffer> <ESC> <Plug>(unite_exit)
+  "入力モードのときjjでノーマルモードに移動
+  imap <buffer> jj <Plug>(unite_insert_leave)
+  "入力モードのときctrl+wでバックスラッシュも削除
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  "ctrl+jで縦に分割して開く
+  nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('vsplit')
+  inoremap <silent> <buffer> <expr> <C-j> unite#do_action('vsplit')
+  "ctrl+jで横に分割して開く
+  nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('split')
+  inoremap <silent> <buffer> <expr> <C-l> unite#do_action('split')
+  "ctrl+oでその場所に開く
+  nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
+  inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
+endfunction"}}}
 
 "" ファイルを開く時、ウィンドウを分割して開く
 "au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 "au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 
-" ファイルを開く時、ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-
 "-----quickrun設定-----"
-"起動時は上に
-set splitbelow
-"起動時は左側に
-"let g:quickrun_config={'*': {'split': ''}}
-" 横分割をするようにする
-nmap ,r <Plug>(quickrun)o
-let g:quickrun_config = {}
-nnoremap ,h :!name=`basename % .md` && pandoc -f markdown -t html -o ${name}.html "%" && open ${name}.html<CR><CR>
-
-"-----buftabs.vim設定-----"
-"ファイル名だけ表示
-let buftabs_only_basename=1
-"ステータスラインに表示
-let buftabs_in_statusline=1 
-nnoremap <silent> bn :bnext<CR>
-nnoremap <silent> bp :bprev<CR>
-
-
+set splitbelow "新しいウィンドウを下に開く
+"nmap ,r <Plug>(quickrun)
+nmap ,r <Plug>(quickrun)
+"CoffeeScriptの設定
+"-----vim-coffee-script設定-----"
+nnoremap <silent>,w :CoffeeCompile watch vert<CR>
 "-----skk.vim設定-----"
 "imap <C-j> <Plug>(skk-toggle-im)
-let g:skk_jisyo=expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.L')
-let g:skk_large_jisyo=expand('~/Library/Application\ Support/AquaSKK/SKK-JISYO.utf-8')
+let g:skk_jisyo=expand('~/.vim/bundle/skk.vim/SKK-JISYO.L')
+let g:skk_large_jisyo=expand('~/.vim/bundle/skk.vim/SKK-JISYO.utf-8')
+let g:skk_auto_save_jisyo = 1 
+let g:skk_sticky_key = '<Space>' 
 let skk_keep_state=0
 let skk_egg_like_newline=1
 let skk_show_annotation=1
 let skk_use_face=1
-
-"-----eskk.vim設定-----"
-"let g:eskk#directory="~/.vim/bundle/eskk.vim/"
-"let g:eskk#directory={'path':"~/Library/Application Support/AquaSKK/skk-jisyo.utf8",'sorted':1,'encoding':'utf-8',}
-"let g:eskk#large_dictionary={'path':"~/.vim/bundle/eskk.vim/SKK-JISYO.L",'sorted':1,'encoding':'utf-8',}
-"
-"if has('vim_starting')
-"  let g:eskk_dictionary='~/Dropbox/skk/user-jisyo'
-"
-"  if has('mac')
-"    let g:eskk_large_dictionary='~/.vim/bundle/eskk.vim/SKK-JISYO.L'
-"  elseif has('win32') || has('win64')
-"    let g:eskk_large_dictionary="/SKK_JISYO.L"
-"  else
-"  endif
-"endif
-"
-"let g:eskk_debug=0
-"let g:eskk_egg_like_newline=1
-"let g:eskk_revert_henkan_style="okuri"
-"let g:eskk#enable_completion=1
-
-"ファイル名だけ表示
 let buftabs_only_basename = 1
-"ステータスラインに表示
 let buftabs_in_statusline = 1
+set statusline=%{exists('*SkkGetModeStr')?SkkGetModeStr():''}[%n]\ %t\ %y%{GetStatusEx()}\ %m%h%r%=%l/%L,%c%V\ %P\ 
 
-"let skk_jisyo = expand('PATH_TO/.skk-jisyo')
+function! GetStatusEx()
+  let str = &fileformat
+  if has("multi_byte") && &fileencoding != ""
+    let str = &fileencoding . ":" . str
+  endif
+  let str = "[" . str . "]"
+  return str
+endfunction
+set laststatus=2
 
-"----QFixGrep設定-----"
-set runtimepath+=~/.vim/bundle/qfixapp/plugin/mygrep.vim
+let g:skk_use_color_cousor=1
+let g:skk_cursor_hira_color='red'
 
 "-----YankRing.vim設定-----"
 "記録する履歴件数を10件に制限する
 let g:yankring_max_history=10
+
 "ウィンドウの高さ調整
 let g:yankring_window_height=13
 "保存先の変更
@@ -183,57 +161,24 @@ let g:yankring_history_file='.yankring_history'
 "yrでYRShowコマンドを入力
 nnoremap yr :YRShow<CR>
 
-"-----EasyMotion設定-----"
-"<Loader><Loader>を<Shift>に設定
-let g:EasyMotion_leader_key = '<Space><Space>'
-
-"-----indent-guides設定-----"
-"indent-guidesプラグインを有効にする
-"let g:indent_guides_enable_on_vim_startup = 1
-"ハイライト設定を変更し、ガイドを見やすくする
-"let g:indent_guides_change_percent = 20 
-"let g:indent_guides_guide_size = 1
-
-"-----Arign設定-----"
-let g:Align_xstrlen = 3
-let g:DrChiptopLvlMenu = ''
-
 "-----vim-ref設定-----"
-nmap ra :<C-u>Ref alc<Space> 
-nmap rr :<C-u>Ref refe<Space>
-nmap rp :<C-u>Ref phpmanual<Space> 
+nmap ,ra :<C-u>Ref alc<Space> 
+nmap ,rr :<C-u>Ref refe<Space>
+nmap ,ru :<C-u>Unite ref/refe<Space>
+nmap ,rp :<C-u>Ref phpmanual<Space> 
+" 入力モードで開始する
 
 autocmd FileType text call ref#register_detection('_', 'alc') "textならKでalcを使う
-let g:ref_ruby_cmd = "/Users/e115703/Documents/Reference/rubyrefm/refe-1_9_2""Rubyのrefefileパス
+let g:ref_refe_encoding = 'euc-jp'
+let g:ref_ruby_cmd = "~/Documents/Reference/rubyrefm/refe-1_9_2" "Rubyのrefefileパス
 let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
+let g:ref_alc_start_linenumber = 39 " 表示する行数
 
 "-----alc設定-----"
-let g:ref_alc_cmd = 'w3m -dump %s' "w3mを使う
+ret g:ref_alc_cmd = 'w3m -dump %s' "w3mを使う
 let g:ref_alc_start_linenumber = 3 "表示開始位置
 let g:ref_alc_start_linenumber = 39 " 表示する行数
-let g:ref_use_vimproc = 0   " vimprocをインストールしてない場合は0を指定
-
-
-
-"-----vim-latex設定----"
-"VIM-LaTeXを利用するファイルの拡張子を設定する
-let g:tex_flavor='latex'
-" *.tex を追加
-au BufNewFile,BufRead *.tex,*.latex,*.sty,*.dtx,*.ltx,*.bbl setf tex
-set grepprg=grep\ -nH\ $*
-"" .texファイルのコンパイルプログラムを指定(エラーで停止しないようオプション指定)
-let g:Tex_CompileRule_dvi = 'platex --interaction=nonstopmode $*'
-"標準で.pdfにコンパイル
-let g:Tex_DefaultTargetFormat = 'pdf' 
-"" pdfファイル生成のための依存関係を記述。
-"" 以下の設定の場合、ターゲットにpdfを指定して\llでコンパイルすると、
-"" まず.dviファイルが作られ、次にそれをもとに.pdfファイルが作られる
-let g:Tex_FormatDependency_pdf = 'dvi,pdf'
-"" .dviファイルのコンパイルプログラムを指定
-let g:Tex_CompileRule_pdf = '/usr/local/bin/dvipdfmx $*.dvi'
-"" .pdfファイルのビュープログラムを指定
-let g:Tex_ViewRule_pdf = 'open -a Preview' 
-"---------------------------------------------
+let g:ref_use_vimproc = 1   " vimprocをインストールしてない場合は0を指定
 
 "-----VimShell設定----"
 let g:vimshell_interactive_update_time = 10
@@ -244,31 +189,39 @@ nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 nnoremap <silent> vt :VimShellTab<CR>
 
-"----current-func-info.vim----"
-let &statusline = '[%{cfi#get_func_name()}()]'
+"----Zencoding設定----"
+let g:user_zen_settings = {
+\       'lang' : 'ja',
+\}
+""---shabadou.vim設定---"
+let g:quickrun_config = {
+\   "_" : {
+\       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
+\       "hook/unite_quickfix/enable_failure" : 1,
+\       "hook/close_quickfix/enable_exit" : 0,
+\       "hook/close_buffer/enable_failure" : 1,
+\       "hook/close_buffer/enable_empty_data" : 1,
+\       "outputter" : "multi:buffer:quickfix",
+\       "runner" : "vimproc",
+\       "outputter/buffer/split" : ":vertical 45",
+\       "runner/vimproc/updatetime" : 40,
+\   }
+\}
 
+""---watchdog設定---"
+" watchdogs.vim の設定を追加
+"call watchdogs#setup(g:quickrun_config)
+"let g:watchdogs_check_CursorHold_enable = 1
+"let g:watchdogs_check_BufWritePost_enable = 1
 
-"----vim-wordcount---"
-set statusline+=[wc:%{WordCount()}]
-set updatetime=500
-
-
-"----qfixhowm----"
-let hown_dir = '/Users/e115703/Dropbox/vim/howm_dir'
-let hown_fileenconfig = 'utf-8'
-let qfixmemo_fileformat = 'unix'
-let qfixmemo_filetype = ''
-let qfixmemo_template = [
-      \'%TITLE%  %TAG%',
-      \""
-      \]
-
-"----smartchr----"
-inoremap <expr> = smartchr#loop('=',' = ',' == ')
-inoremap <expr> , smartchr#one_of(', ', ',')
-inoremap <expr> + smartchr#one_of('+', ' + ')
-inoremap <expr> - smartchr#one_of('-', ' - ')
-"inoremap <expr> * smartchr#one_of('*', ' * ')
-inoremap <expr> , smartchr#one_of(', ',',')
-inoremap <expr> / smartchr#loop('/', '// ', '//')
+"---syntastic.vim設定---"
+let g:syntastic_enable_highlighting=0
+let g:syntastic_auto_jump=1
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list = 1 
+let g:syntastic_mode_map = {
+      \  'mode': 'active',
+      \ 'active_filetypes': ['ruby', 'javascript'],
+      \ 'passive_filetypes': []
+      \ }
 

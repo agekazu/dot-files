@@ -1,11 +1,12 @@
 "ファイルを開いたときに、ファイルを閉じた時のカーソル位置までカーソルを移動
 :au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-"version7.3以上なら永続的undoを有効にする
+
+"永続的undoを有効にする
 set undodir=~/.vim/undo/
 set undofile
 "挿入モードとノーマルモードでステータスラインの色を変更する
-let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg= Darkblue cterm=None ctermfg=white ctermbg=Darkblue'
+let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg=blue cterm=None ctermfg=white ctermbg=blue'
 
 if has('syntax')
   augroup InsertHook
@@ -36,9 +37,11 @@ function! s:GetHighlight(hi)
 endfunction
 
 
+
+
 "ステータスラインを常に表示
-set laststatus=2
-set statusline=%t\ %m%r%h%w[%Y][%{&fenc}][%{&ff}]%=%c,%l%11p%%
+"set laststatus=2
+"set statusline=%t\ %m%r%h%w[%Y][%{&fenc}][%{&ff}]%=%c,%l%11p%%
 
 "" ファイル別にundo履歴を残す
 "au BufReadPost * call ReadUndo()
@@ -57,3 +60,21 @@ set statusline=%t\ %m%r%h%w[%Y][%{&fenc}][%{&ff}]%=%c,%l%11p%%
 "endfunc
 "
 "
+
+"閉じカッコ補完
+inoremap ( ()<ESC>i
+inoremap <expr> ) ClosePair(')')
+inoremap { {}<ESC>i
+inoremap <expr> } ClosePair('}')
+inoremap [ []<ESC>i
+inoremap <expr> ] ClosePair(']')
+
+" pair close checker.
+" from othree vimrc ( http://github.com/othree/rc/blob/master/osx/.vimrc )
+function ClosePair(char)
+  if getline('.')[col('.') - 1] == a:char
+    return "\<Right>"
+  else
+    return a:char
+  endif
+endf

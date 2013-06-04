@@ -2,39 +2,105 @@
 "vimプラグイン
 "
 set nocompatible
-"" Vundle '''
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+"" NeoBundle'''
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
 "利用中のプラグインをBundle
-Bundle 'Shougo/vimfiler'
-Bundle 'gmarik/vundle'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete' 
-Bundle 'Shougo/unite.vim'
-Bundle 'quickrun.vim'
-Bundle 'ujihisa/neco-look'
-Bundle 'thinca/vim-ref'
-Bundle 'mattn/webapi-vim'
-Bundle 'Shougo/vimproc'
-Bundle 'tyru/skk.vim'
-Bundle 'Shougo/vimshell'
-Bundle 'matchit.zip'
-Bundle 'ZenCoding.vim'
-Bundle 'surround.vim'
-Bundle 'tpope/vim-surround'
-Bundle 'tyru/caw.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'osyo-manga/unite-quickfix'
-Bundle 'osyo-manga/shabadou.vim'
-Bundle 'osyo-manga/vim-watchdogs'
-Bundle 'jceb/vim-hier'
-Bundle 'scrooloose/syntastic'
+"NeoBundle 'jceb/vim-hier'
+NeoBundle 'dannyob/quickfixstatus'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'L9'
+NeoBundle 'FuzzyFinder'
+"NeoBundle 'fuenor/qfixgrep'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite-build'
+NeoBundle 'ujihisa/neco-look'
+NeoBundle 'sudo.vim'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 't9md/vim-textmanip'
+NeoBundle 'thinca/vim-quickrun'                                            
+NeoBundleLazy "dag/vim2hs",                  {"autoload" : { "filetypes" : ["haskell"] }}
+NeoBundleLazy "eagletmt/ghcmod-vim",         {"autoload" : { "filetypes" : ["haskell"] }}
+NeoBundleLazy "eagletmt/unite-haddock",      {"autoload" : { "filetypes" : ["haskell"] }}
+NeoBundleLazy "ujihisa/neco-ghc",            {"autoload" : { "filetypes" : ["haskell"] }}
+NeoBundleLazy "ujihisa/unite-haskellimport", {"autoload" : { "filetypes" : ["haskell"] }}
+
+"NeoBundle 'osyo-manga/unite-quickfix'
+"NeoBundle 'fuenor/qfixgrep'
+"NeoBundle 'osyo-manga/shabadou.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'YankRing.vim'
+NeoBundle 'thiynca/vim-textobj-between' , {'depends' : 'textobj-user'}
+NeoBundle 'Shougo/neocomplcache'
+
+call neobundle#config('neocomplcache', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
+NeoBundle 'Shougo/neosnippet'
+call neobundle#config('neosnippet', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \ }})
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+
+NeoBundleLazy 'Shougo/vimfiler', {
+      \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
+      \}
+
+NeoBundleLazy 'Shougo/vimshell', {
+      \   'autoload' : { 'commands' : [ "VimShell", "VimShellTab", "VimShellPop", "VimShellInteractive" ] }
+      \}
+
+NeoBundleLazy 'kchmck/vim-coffee-script', {
+      \   "autoload" : { "filetypes" : ["coffee"] }
+      \}
+
+NeoBundleLazy 'thinca/vim-ref', {
+      \   'autoload' : { 'commands' : ['Ref'] }
+      \}
 
 
+NeoBundleLazy 'glidenote/memolist.vim', {
+       \   'autoload' : { 'commands' : ["MemoNew", "MemoList", "MemoGrep"] } 
+       \}
 
-"-----vundle設定-----"
-nnoremap <silent> bi :BundleInstall<CR>
+NeoBundleLazy 'matchit.zip', {
+      \   "autoload" : { "filetypes" : ["coffee"] }
+      \}
+
+NeoBundleLazy 'ZenCoding.vim', {
+      \   "autoload" : { "filetypes" : ["html", "htm", "php"] }
+      \}
+"NeoBundleLazy 'surround.vim'
+
+NeoBundleLazy 'gregsexton/gitv',{
+       \   'autoload' : { 'commands' : ['Gitv'] } 
+       \}
+
+
+filetype plugin indent on
+filetype indent on
+
+"-----neobundle設定-----"
+nnoremap <silent><Leader>bi :NeoBundleInstall<CR>
+nnoremap <silent><Leader>bc :NeoBundleClean<CR>
+nnoremap <silent><Leader>bu :NeoBundleUpdate<CR>
 
 "-----vimfiller設定------"
 "netrwの代わりにvimfilerを起動
@@ -45,17 +111,11 @@ let g:vimfiler_safe_mode_by_default = 0
 "-----neocomplcache設定------"
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_underbar_completion = 1
-
-"vim起動と同時に起動
-"_の補完を有効化
-"smart case機能を有効化
-"let g:neocomplcache_enable_smart_case = 1
-"区切り補完の有効化
-"let g:neocomplcache_enable_underbar_completion = 1
-"snippet ファイルの保存先
 let g:neocomplcache_snippets_dir='~/.vim/snippets'
+
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd! FileType markdown hi! def link markdownItalic Normal
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -63,95 +123,51 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
-"tabで補完をできるようにする
-noremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "<C-k>でスニペットの展開
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
+
 
 "-----unite.vim-----'
 " Uniteを開く時、垂直分割で開く
 let g:unite_enable_split_vertically=1
 
+
 " バッファ一覧
-noremap <silent>,b :<C-u>Unite buffer<CR>
+noremap <Leader>b :<C-u>Unite buffer<CR>
 " grep
-nnoremap <silent>,g :<C-u><C-g> :<C-u>Unite grep<CR>
+nnoremap <Leader>g :<C-u><C-g> :<C-u>Unite grep<CR>
 " 最近使ったファイルの一覧
-noremap <silent>,z :<C-u>Unite file_mru<CR>
+noremap <Leader>s :<C-u>Unite file_mru<CR>
 " ファイル一覧
-noremap <silent>,f :<C-u>Unite -buffer-name=file file<CR>
+noremap <Leader>f :<C-u>Unite -buffer-name=file file<CR>
 " レジスタ一覧
-nnoremap <silent>,,r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <Leader><Leader>r :<C-u>Unite -buffer-name=register register<CR>
 " 常用セット
-nnoremap <silent>,a :<C-u>Unite buffer file_mru<CR>
+nnoremap <Leader>a :<C-u>Unite buffer file_mru<CR>
+" アウトライン
+nnoremap  <Leader>ol : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
 " 全部乗せ
-nnoremap <silent>,all :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-
-
-"uniteを開いている間のキーマッピング
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-  "ESCでuniteを終了
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-  "入力モードのときjjでノーマルモードに移動
-  imap <buffer> jj <Plug>(unite_insert_leave)
-  "入力モードのときctrl+wでバックスラッシュも削除
-  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  "ctrl+jで縦に分割して開く
-  nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('vsplit')
-  inoremap <silent> <buffer> <expr> <C-j> unite#do_action('vsplit')
-  "ctrl+jで横に分割して開く
-  nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('split')
-  inoremap <silent> <buffer> <expr> <C-l> unite#do_action('split')
-  "ctrl+oでその場所に開く
-  nnoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
-  inoremap <silent> <buffer> <expr> <C-o> unite#do_action('open')
-endfunction"}}}
-
-"" ファイルを開く時、ウィンドウを分割して開く
-"au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
-"au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+nnoremap <Leader>all :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+command! Uf Unite file
+command! Ur Unite register
+command! Um Unite file_mru
+command! Ug Unite grep
+command! Uo Unite outline
+command! Uc Unite menu:commands
 
 "-----quickrun設定-----"
 set splitbelow "新しいウィンドウを下に開く
-"nmap ,r <Plug>(quickrun)
-nmap ,r <Plug>(quickrun)
-"CoffeeScriptの設定
+nmap <Leader>r <Plug>(quickrun)
+let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+
+"
 "-----vim-coffee-script設定-----"
-nnoremap <silent>,w :CoffeeCompile watch vert<CR>
-"-----skk.vim設定-----"
-"imap <C-j> <Plug>(skk-toggle-im)
-let g:skk_jisyo=expand('~/.vim/bundle/skk.vim/SKK-JISYO.L')
-let g:skk_large_jisyo=expand('~/.vim/bundle/skk.vim/SKK-JISYO.utf-8')
-let g:skk_auto_save_jisyo = 1 
-let g:skk_sticky_key = '<Space>' 
-let skk_keep_state=0
-let skk_egg_like_newline=1
-let skk_show_annotation=1
-let skk_use_face=1
-let buftabs_only_basename = 1
-let buftabs_in_statusline = 1
-set statusline=%{exists('*SkkGetModeStr')?SkkGetModeStr():''}[%n]\ %t\ %y%{GetStatusEx()}\ %m%h%r%=%l/%L,%c%V\ %P\ 
-
-function! GetStatusEx()
-  let str = &fileformat
-  if has("multi_byte") && &fileencoding != ""
-    let str = &fileencoding . ":" . str
-  endif
-  let str = "[" . str . "]"
-  return str
-endfunction
-set laststatus=2
-
-let g:skk_use_color_cousor=1
-let g:skk_cursor_hira_color='red'
+nnoremap <Leader>w :CoffeeCompile watch vert<CR>
 
 "-----YankRing.vim設定-----"
-"記録する履歴件数を10件に制限する
-let g:yankring_max_history=10
 
 "ウィンドウの高さ調整
 let g:yankring_window_height=13
@@ -159,18 +175,16 @@ let g:yankring_window_height=13
 let g:yankring_history_dir=expand('$HOME')
 let g:yankring_history_file='.yankring_history'
 "yrでYRShowコマンドを入力
-nnoremap yr :YRShow<CR>
+nnoremap <Leader>yr :YRShow<CR>
 
 "-----vim-ref設定-----"
-nmap ,ra :<C-u>Ref alc<Space> 
-nmap ,rr :<C-u>Ref refe<Space>
-nmap ,ru :<C-u>Unite ref/refe<Space>
-nmap ,rp :<C-u>Ref phpmanual<Space> 
-" 入力モードで開始する
+nmap <Leader>ra :Ref alc 
+nmap <Leader>rr :Ref refe
+nmap <Leader>ru :Unite ref/refe
+nmap <Leader>rp :Ref phpmanual 
 
-autocmd FileType text call ref#register_detection('_', 'alc') "textならKでalcを使う
-let g:ref_refe_encoding = 'euc-jp'
-let g:ref_ruby_cmd = "~/Documents/Reference/rubyrefm/refe-1_9_2" "Rubyのrefefileパス
+" 入力モードで開始する
+let g:ref_rby_cmd = "~/Documents/Reference/rubyrefm/refe-1_9_2" "Rubyのrefefileパス
 let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
 let g:ref_alc_start_linenumber = 39 " 表示する行数
 
@@ -178,50 +192,108 @@ let g:ref_alc_start_linenumber = 39 " 表示する行数
 ret g:ref_alc_cmd = 'w3m -dump %s' "w3mを使う
 let g:ref_alc_start_linenumber = 3 "表示開始位置
 let g:ref_alc_start_linenumber = 39 " 表示する行数
-let g:ref_use_vimproc = 1   " vimprocをインストールしてない場合は0を指定
 
 "-----VimShell設定----"
 let g:vimshell_interactive_update_time = 10
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
-"----vimshell map設定----"
-nnoremap <silent> vsc :VimShellCreate<CR>
-nnoremap <silent> vp :VimShellPop<CR>
-nnoremap <silent> vt :VimShellTab<CR>
+autocmd FileType vimshell setlocal nonumber
+
+nnoremap <silent><Leader>vp :VimShellPop<CR>
+nnoremap <silent><Leader>vsc :VimShellCreate<CR>
+nnoremap <silent><Leader>vt :VimShellTab<CR>
+
 
 "----Zencoding設定----"
 let g:user_zen_settings = {
-\       'lang' : 'ja',
-\}
-""---shabadou.vim設定---"
+      \       'lang' : 'ja',
+      \}
+let g:use_zen_complete_tag = 1
+
+"---shabadou.vim設定---"
 let g:quickrun_config = {
-\   "_" : {
-\       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
-\       "hook/unite_quickfix/enable_failure" : 1,
-\       "hook/close_quickfix/enable_exit" : 0,
-\       "hook/close_buffer/enable_failure" : 1,
-\       "hook/close_buffer/enable_empty_data" : 1,
-\       "outputter" : "multi:buffer:quickfix",
-\       "runner" : "vimproc",
-\       "outputter/buffer/split" : ":vertical 45",
-\       "runner/vimproc/updatetime" : 40,
-\   }
-\}
+      \   "_" : {
+      \       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
+      \       "hook/unite_quickfix/enable_failure" : 1,
+      \       "hook/close_quickfix/enable_exit" : 0,
+      \       "hook/close_buffer/enable_failure" : 1,
+      \       "hook/close_buffer/enable_empty_data" : 1,
+      \       "outputter" : "multi:buffer:quickfix",
+      \       "runner" : "vimproc",
+      \       "outputter/buffer/split" : ":vertical 45",
+      \       "runner/vimproc/updatetime" : 40,
+      \   }
+      \}
 
-""---watchdog設定---"
-" watchdogs.vim の設定を追加
-"call watchdogs#setup(g:quickrun_config)
-"let g:watchdogs_check_CursorHold_enable = 1
-"let g:watchdogs_check_BufWritePost_enable = 1
+"---rsense設定---"
+let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
 
-"---syntastic.vim設定---"
-let g:syntastic_enable_highlighting=0
-let g:syntastic_auto_jump=1
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list = 1 
-let g:syntastic_mode_map = {
-      \  'mode': 'active',
-      \ 'active_filetypes': ['ruby', 'javascript'],
-      \ 'passive_filetypes': []
-      \ }
+"vim-textmanip'
+" 選択したテキストの移動
+xmap <C-j> <Plug>(textmanip-move-down)
+xmap <C-j> <Plug>(textmanip-move-down)
+xmap <C-k> <Plug>(textmanip-move-up)
+xmap <C-h> <Plug>(textmanip-move-left)
+xmap <C-l> <Plug>(textmanip-move-right)
+
+"---memolist.vim
+
+nnoremap <Leader>mn  :MemoNew<CR>
+nnoremap <Leader>ml  :MemoList<CR>
+nnoremap <Leader>mg  :MemoGrep<CR>
+
+"---qfixgrep
+set grepprg=grep
+
+xmap <C-k> <Plug>(textmanip-move-up)
+xmap <C-h> <Plug>(textmanip-move-left)
+xmap <C-l> <Plug>(textmanip-move-right)
+
+"---memolist.vim
+
+nnoremap <Leader>mn  :MemoNew<CR>
+nnoremap <Leader>ml  :MemoList<CR>
+nnoremap <Leader>mg  :MemoGrep<CR>
+
+"let g:memolist_memo_suffix = "txt"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M:%S"
+let g:memolist_memo_date = "epoch"
+let g:memolist_memo_date = "%D %T"
+let g:memolist_prompt_tags = 1
+let g:memolist_prompt_categories = 1
+let g:memolist_qfixgrep = 1
+"let g:memolist_vimfiler = 1
+let g:memolist_template_dir_path = "~/Dropbox/.memo"
+let g:memolist_path= "~/Dropbox/.memo"
+command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.
+command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.
+command! Todo edit ~/Dropbox/.memo/2013-02-04-todo.markdown
+
+"---qfixgrep
+set grepprg=grep
+let MyGrep_ExcludeReg = '[~#]$\|\.app$\|\.o$\|\.pdf$\|\.xls$' " ignorefile
+let g:MyGrepDefault_Ignorecase = 1 " 大文字小文字を区別しない
+
+"---open-browser
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
+"---Fugitive
+nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <Leader>gs :<C-u>Gstatus<CR>
+nnoremap <Leader>gl :<C-u>Glog<CR>
+nnoremap <Leader>ga :<C-u>Gwrite<CR>
+nnoremap <Leader>gc :<C-u>Gcommit<CR>
+nnoremap <Leader>gC :<C-u>Git commit --amend<CR>
+nnoremap <Leader>gb :<C-u>Gblame<CR>
+
+"---jceb/vim-hier
+execute "highlight ucurl_my gui=undercurl guisp=Red"
+let g:hier_highlight_group_qf = "ucurl_my"
+
+"---FuzzyFinder
+nmap mf  :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
+
+
 

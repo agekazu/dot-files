@@ -1,3 +1,6 @@
+
+
+
 "ファイルを開いたときに、ファイルを閉じた時のカーソル位置までカーソルを移動
 :au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 

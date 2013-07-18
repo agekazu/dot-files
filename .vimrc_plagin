@@ -5,93 +5,86 @@ set nocompatible
 filetype off
 "" NeoBundle'''
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle/'))
+    set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
+call neobundle#rc(expand('~/.vim/bundle/'))
 "利用中のプラグインをBundle
 "NeoBundle 'jceb/vim-hier'
-NeoBundle 'dannyob/quickfixstatus'
-NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'L9'
-NeoBundle 'FuzzyFinder'
-"NeoBundle 'fuenor/qfixgrep'
+NeoBundle 'Align'
+NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'dannyob/quickfixstatus' "quickfix
+NeoBundle 'Lokaltog/vim-powerline' "status line 
+"NeoBundle 'L9'
+"NeoBundle 'FuzzyFinder'            "grep 
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite-build'
-NeoBundle 'ujihisa/neco-look'
-NeoBundle 'sudo.vim'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-build'     "Unite build :: make
+NeoBundle 'ujihisa/neco-look'      "English compensation
+NeoBundle 'sudo.vim'               "vim sudo:filename
+NeoBundle 'h1mesuke/unite-outline' 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 't9md/vim-textmanip'
-NeoBundle 'thinca/vim-quickrun'                                            
-NeoBundleLazy "dag/vim2hs",                  {"autoload" : { "filetypes" : ["haskell"] }}
-NeoBundleLazy "eagletmt/ghcmod-vim",         {"autoload" : { "filetypes" : ["haskell"] }}
-NeoBundleLazy "eagletmt/unite-haddock",      {"autoload" : { "filetypes" : ["haskell"] }}
-NeoBundleLazy "ujihisa/neco-ghc",            {"autoload" : { "filetypes" : ["haskell"] }}
-NeoBundleLazy "ujihisa/unite-haskellimport", {"autoload" : { "filetypes" : ["haskell"] }}
-
-"NeoBundle 'osyo-manga/unite-quickfix'
-"NeoBundle 'fuenor/qfixgrep'
-"NeoBundle 'osyo-manga/shabadou.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Shougo/neobundle.vim'
+"NeoBundle 't9md/vim-textmanip'     "move documents
+"NeoBundleLazy "dag/vim2hs",                  {"autoload" : { "filetypes" : ["haskell"] }}
+"NeoBundleLazy "eagletmt/ghcmod-vim",         {"autoload" : { "filetypes" : ["haskell"] }}
+"NeoBundleLazy "eagletmt/unite-haddock",      {"autoload" : { "filetypes" : ["haskell"] }}
+"NeoBundleLazy "ujihisa/neco-ghc",            {"autoload" : { "filetypes" : ["haskell"] }}
+"NeoBundleLazy "ujihisa/unite-haskellimport", {"autoload" : { "filetypes" : ["haskell"] }}
+NeoBundle 'tpope/vim-fugitive'     "Gwrite-Gcommit
 NeoBundle 'YankRing.vim'
 NeoBundle 'thiynca/vim-textobj-between' , {'depends' : 'textobj-user'}
-NeoBundle 'Shougo/neocomplcache'
+NeoBundleLazy 'Shougo/neocomplcache', {
+            \ 'autoload' : {
+            \   'insert' : 1,
+            \ }}
+NeoBundleLazy 'Shougo/neosnippet', {
+            \ 'autoload' : {
+            \   'insert' : 1,
+            \ }}
 
-call neobundle#config('neocomplcache', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \ }})
-NeoBundle 'Shougo/neosnippet'
-call neobundle#config('neosnippet', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \ }})
 NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
 
 NeoBundleLazy 'Shougo/vimfiler', {
-      \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
-      \}
+            \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
+            \}
 
 NeoBundleLazy 'Shougo/vimshell', {
-      \   'autoload' : { 'commands' : [ "VimShell", "VimShellTab", "VimShellPop", "VimShellInteractive" ] }
-      \}
+            \   'autoload' : { 'commands' : [ "VimShell", "VimShellTab", "VimShellPop", "VimShellInteractive" ] }
+            \}
 
+"NeoBundle 'vim-scripts / neocomplcache-snippets_complete'
 NeoBundleLazy 'kchmck/vim-coffee-script', {
-      \   "autoload" : { "filetypes" : ["coffee"] }
-      \}
+            \   "autoload" : { "filetypes" : ["coffee"] }
+            \}
 
 NeoBundleLazy 'thinca/vim-ref', {
-      \   'autoload' : { 'commands' : ['Ref'] }
-      \}
+            \   'autoload' : { 'commands' : ['Ref'] }
+            \}
 
 
 NeoBundleLazy 'glidenote/memolist.vim', {
-       \   'autoload' : { 'commands' : ["MemoNew", "MemoList", "MemoGrep"] } 
-       \}
+            \   'autoload' : { 'commands' : ["MemoNew", "MemoList", "MemoGrep"] } 
+            \}
 
 NeoBundleLazy 'matchit.zip', {
-      \   "autoload" : { "filetypes" : ["coffee"] }
-      \}
+            \   "autoload" : { "filetypes" : ["coffee"] }
+            \}
 
 NeoBundleLazy 'ZenCoding.vim', {
-      \   "autoload" : { "filetypes" : ["html", "htm", "php"] }
-      \}
+            \   "autoload" : { "filetypes" : ["html", "htm", "php"] }
+            \}
 "NeoBundleLazy 'surround.vim'
 
 NeoBundleLazy 'gregsexton/gitv',{
-       \   'autoload' : { 'commands' : ['Gitv'] } 
-       \}
+            \   'autoload' : { 'commands' : ['Gitv'] } 
+            \}
 
 
 filetype plugin indent on
@@ -109,11 +102,47 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 
 "-----neocomplcache設定------"
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_snippets_dir='~/.vim/snippets'
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"-----neosnippet設定------"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>" 
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+" Tell Neosnippet about the other snippets
+"let g:neosnippet#enable_snipmate_compatibility = 1
+"let g:neosnippet#snippets_directory='~/.vim/snippets'
+
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd! FileType markdown hi! def link markdownItalic Normal
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -121,13 +150,10 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
 "let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-
-"<C-k>でスニペットの展開
-imap <C-k> <Plug>(neocomplcache_snippets_expand)
 
 
 "-----unite.vim-----'
@@ -159,11 +185,21 @@ command! Uo Unite outline
 command! Uc Unite menu:commands
 
 "-----quickrun設定-----"
-set splitbelow "新しいウィンドウを下に開く
+"set splitbelow "新しいウィンドウを左に開く
+"set splitright
 nmap <Leader>r <Plug>(quickrun)
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+let g:quickrun_config['tex'] = {'command': 'output_tex.sh'}
+"let g:quickrun_config['tex'] = {
+"      \   'command' : 'output_tex.sh',
+"      \   'exec': ['%c %s', 'dvipdfmx -o %s:r.pdf %s:r.dvi']
+"      \}
+"let g:quickrun_config['tex'] = {
+"      \   'command' : 'platex',
+"      \   'exec': ['%c %s', 'dvipdfmx -o %s:r.pdf %s:r.dvi', 'zathura %s:r.pdf']
+"      \}
 
-"
+
 "-----vim-coffee-script設定-----"
 nnoremap <Leader>w :CoffeeCompile watch vert<CR>
 
@@ -206,24 +242,9 @@ nnoremap <silent><Leader>vt :VimShellTab<CR>
 
 "----Zencoding設定----"
 let g:user_zen_settings = {
-      \       'lang' : 'ja',
-      \}
+            \       'lang' : 'ja',
+            \}
 let g:use_zen_complete_tag = 1
-
-"---shabadou.vim設定---"
-let g:quickrun_config = {
-      \   "_" : {
-      \       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
-      \       "hook/unite_quickfix/enable_failure" : 1,
-      \       "hook/close_quickfix/enable_exit" : 0,
-      \       "hook/close_buffer/enable_failure" : 1,
-      \       "hook/close_buffer/enable_empty_data" : 1,
-      \       "outputter" : "multi:buffer:quickfix",
-      \       "runner" : "vimproc",
-      \       "outputter/buffer/split" : ":vertical 45",
-      \       "runner/vimproc/updatetime" : 40,
-      \   }
-      \}
 
 "---rsense設定---"
 let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
@@ -236,38 +257,12 @@ xmap <C-k> <Plug>(textmanip-move-up)
 xmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
 
-"---memolist.vim
-
-nnoremap <Leader>mn  :MemoNew<CR>
-nnoremap <Leader>ml  :MemoList<CR>
-nnoremap <Leader>mg  :MemoGrep<CR>
-
 "---qfixgrep
 set grepprg=grep
 
-xmap <C-k> <Plug>(textmanip-move-up)
-xmap <C-h> <Plug>(textmanip-move-left)
-xmap <C-l> <Plug>(textmanip-move-right)
-
-"---memolist.vim
-
-nnoremap <Leader>mn  :MemoNew<CR>
-nnoremap <Leader>ml  :MemoList<CR>
-nnoremap <Leader>mg  :MemoGrep<CR>
-
-"let g:memolist_memo_suffix = "txt"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M:%S"
-let g:memolist_memo_date = "epoch"
-let g:memolist_memo_date = "%D %T"
-let g:memolist_prompt_tags = 1
-let g:memolist_prompt_categories = 1
-let g:memolist_qfixgrep = 1
-"let g:memolist_vimfiler = 1
-let g:memolist_template_dir_path = "~/Dropbox/.memo"
-let g:memolist_path= "~/Dropbox/.memo"
-command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.
-command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.
-command! Todo edit ~/Dropbox/.memo/2013-02-04-todo.markdown
+"xmap <C-k> <Plug>(textmanip-move-up)
+"xmap <C-h> <Plug>(textmanip-move-left)
+"xmap <C-l> <Plug>(textmanip-move-right)
 
 "---qfixgrep
 set grepprg=grep
@@ -295,5 +290,6 @@ let g:hier_highlight_group_qf = "ucurl_my"
 "---FuzzyFinder
 nmap mf  :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
 
-
+"---Align
+let g:Align_xstrlen=3
 

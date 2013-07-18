@@ -23,6 +23,11 @@ autocmd BufNewFile *.rb 0r ~/.vim/template/ruby.rb "rbのテンプレート
 autocmd BufNewFile *.pl 0r ~/.vim/template/perl.pl "plのテンプレート
 autocmd BufNewFile *.sh 0r ~/.vim/template/shell.sh "shのテンプレート
 autocmd BufNewFile *.html 0r ~/.vim/template/javascript.html "htmlのテンプレート
+autocmd FileType * set tabstop=4
+autocmd FileType tex set shiftwidth=2
+autocmd FileType tex set tabstop=2
+autocmd FileType html set tabstop=2
+autocmd FileType html set shiftwidth=2
 autocmd BufWritePost *.coffee silent CoffeeMake! -c -b -o js coffee | cwindow | redraw! "CoffeeScriptの設定
 
 "永続的undoを有効にする
@@ -52,12 +57,13 @@ set wildignore=*.o,a.out,*pdf,*git,*hg,*eps,*png
 
 " autocmds
 
-augroup TeX
-  autocmd!
-  autocmd BufNewFile *.tex setl filetype=tex
-  autocmd BufRead    *.tex setl filetype=tex
-  autocmd FileType tex nnoremap <C-K> :make<CR>
-augroup END
+"augroup TeX
+"  autocmd!
+"  autocmd BufNewFile *.tex setl filetype=tex
+"  autocmd BufRead    *.tex setl filetype=tex
+"  autocmd FileType tex nnoremap <C-K> :make<CR>
+"  set shiftwidth=2 
+"augroup END
 
 
 "---------------------------------------------------------------------------
@@ -78,7 +84,6 @@ let &t_EI = "\e]50;CursorShape=0\x7"
 " ステータスライン
 set cmdheight=2 " コマンドラインに使われる画面上の行数。
 set laststatus=2 " 常にステータス行を表示
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set wildmenu " コマンドライン補完を拡張モードで実行
 set showcmd " コマンドを最下層に表示
 
@@ -91,7 +96,7 @@ highlight Visual term=reverse cterm=reverse ctermbg=7 gui=reverse guifg=black
 highlight SpellBad term=bold ctermfg=black "スペルミスの時
 highlight linenr ctermfg = lightcyan "行番号の色を変える(色はlightcyan)
 highlight Comment ctermfg = 2 "コメントの色
-highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey "ステータスラインの色
+"highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey "ステータスラインの色
 highlight Pmenu      ctermbg = grey
 highlight PmenuSel   ctermbg = yellow
 highlight PMenuSbar  ctermbg = grey
@@ -104,7 +109,6 @@ highlight PmenuThumb ctermfg = black
 "全角スペースの表示
 highlight ZenkakuSpace cterm=underline ctermfg=lightred guibg=darkgray
 match ZenkakuSpace /　/
-" 自動保管の色
 
 
 "---------------------------------------------------------------------------
@@ -122,28 +126,19 @@ nnoremap > <C-W>3>
 nnoremap <  <C-W>3<
 nnoremap <S-Tab> gt
 nnoremap <Tab><Tab> gT
-for i in range(1, 9)
-  execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
-endfor
+noremap <CR> i<Enter> <ESC>
 
-nnoremap <CR> i<CR><ESC>
 "gpでペーストしたテキストを再選択できるようにする
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 "ヤンクした文字列でカーソル位置の単語を置換するコマンド
 "インデント選択後再度ヴィジュアルモードで選択できるようにする
 nnoremap <silent> <silent> ciy ciw<C-r>0<ESC>:let@1<CR>:nohr<CR>
-nnoremap <silent> cm :<C-u>checktime<CR>
 
 "----インサートモードでのキーリマップ----
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap pastetoggle=<C-p> "pasteモード切り替え
-
-"----ヴィジュアルモードでのキーリマップ----
-vnoremap <silent> cy c<C-r>0<ESC>:let@1<CR>:nohr<CR>
 
 
 "線を描画する短縮入力を定義
 inoreabbrev <expr> wla repeat('*',80 - col('.'))
 inoreabbrev <expr> wlb repeat('-',80 - col('.'))
-

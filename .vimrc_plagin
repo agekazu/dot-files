@@ -11,6 +11,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 "利用中のプラグインをBundle
 "NeoBundle 'jceb/vim-hier'
 NeoBundle 'Align'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'dannyob/quickfixstatus' "quickfix

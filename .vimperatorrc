@@ -1,0 +1,62 @@
+"3.8 (created: 2013/10/13 18:08:56)
+ set titlestring=
+" Mappings
+noremap j 5<C-e>
+noremap k 5<C-y>
+noremap h 3<Left>
+noremap l 3<Right>
+
+" fで表示されるリンクを英字にする
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+
+"guiなし"
+set gui=none
+
+" shortcut mybokmarks
+
+" somooziee
+let g:smooziee_scroll_amount="50" " scroll amonut on up/down
+let g:smooziee_scroll_interval="5" " scroll time
+
+" search ward highlight
+set hlsearch=true
+set ignorecase=true
+
+" hintの色
+highlight! Hint font-family: "Bitstream Vera Sans Mono",monaco,monospace; font-size: 12px; font-weight: bold; color: white; background-color: Brown; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 2px; line-height: 1em;
+
+noremap <C-j> <C-n>
+noremap <C-k> <C-p>
+noremap b o
+noremap <M-f> /
+
+" copy.js
+javascript <<EOM
+  liberator.globalVariables.copy_templates = [
+  {label:'Url', value:'%URL%'},
+  {label:'TitleAndUrl', value:'%TITLE% %URL%'},
+  {label:'hatena', value:'[%URL%:title=%TITLE%]'},
+  {label:'wiki', value:'[[%TITLE%|%URL%]]'},
+  {label:'redmine', value:'"%TITLE%":%URL%'},
+  {label:'title', value: '%TITLE%'},
+  {label:'text', value: '%TITLE% %URL%'},
+  {label:'anchor', value: '<a href="%URL%">%TITLE%</a>'},
+  {label:'markdown', value: '[%TITLE%](%URL%)'},
+  {label:'tex', value: "\\bibitem{}%TITLE%\\\\\n\\url\{%URL%\}"},
+  ];
+EOM
+
+%   \bibitem{dog}白黒\\
+%     \url{http://suntaro.jugem.jp/?eid=381}\\
+noremap <C-t> :copy text<CR><CR>
+noremap <C-m> :copy markdown<CR><CR>
+noremap <C-r> :copy redmine<CR><CR>
+noremap <C-e> :copy tex<CR><CR>
+
+" quick bookmark
+qmark t https://trello.com/b/UebbGVol/rice-american-s-bord
+qmark k http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/
+qmark w https://webclass.cc.u-ryukyu.ac.jp/
+qmark r https://redmine.ie.u-ryukyu.ac.jp/projects/ie-server/issues?set_filter=1&tracker_id=23
+qmark g https://github.com/rice-american
+

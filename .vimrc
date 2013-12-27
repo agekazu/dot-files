@@ -124,8 +124,6 @@ map gl <C-w>l
 
 
 "----ノーマルモードでのキーリマップ----
-nnoremap > <C-W>3>
-nnoremap <  <C-W>3<
 nnoremap <S-Tab> gt
 nnoremap <Tab><Tab> gT
 noremap <CR> i<Enter> <ESC>

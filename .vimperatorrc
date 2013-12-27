@@ -1,5 +1,5 @@
 "3.8 (created: 2013/10/13 18:08:56)
- set titlestring=
+ set titlestring=""
 " Mappings
 noremap j 5<C-e>
 noremap k 5<C-y>
@@ -30,6 +30,9 @@ noremap <C-k> <C-p>
 noremap b o
 noremap <M-f> /
 
+" multibyte url を yank
+nnoremap y :js util.copyToClipboard(buffer.URL, true)<CR>
+
 " copy.js
 javascript <<EOM
   liberator.globalVariables.copy_templates = [
@@ -46,8 +49,6 @@ javascript <<EOM
   ];
 EOM
 
-%   \bibitem{dog}白黒\\
-%     \url{http://suntaro.jugem.jp/?eid=381}\\
 noremap <C-t> :copy text<CR><CR>
 noremap <C-m> :copy markdown<CR><CR>
 noremap <C-r> :copy redmine<CR><CR>
@@ -59,4 +60,7 @@ qmark k http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/
 qmark w https://webclass.cc.u-ryukyu.ac.jp/
 qmark r https://redmine.ie.u-ryukyu.ac.jp/projects/ie-server/issues?set_filter=1&tracker_id=23
 qmark g https://github.com/rice-american
+qmark o http://gunosy.com/
+qmark d http://www.la.osn.u-ryukyu.ac.jp/admin/report/
+qmark a http://animetick.net/ticket/list
 

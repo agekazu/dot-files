@@ -2,8 +2,6 @@
 #補完機能を有効化
 autoload -U compinit
 compinit
-# dirをpush
-setopt auto_pushd
 
 #コマンド履歴を記憶
 HISTFILE=~/.zsh_history
@@ -31,9 +29,9 @@ export GNUPLOT_DEFAULT_GDFONT=Verdana
 #export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 #言語設定
-#export GDFONTPATH=/Library/Fonts/
+export GDFONTPATH=/Library/Fonts/
 export LANG=ja_JP.UTF-8
-#export _Z_DATA=$HOME/.zfiles/.z
+export _Z_DATA=$HOME/.zfiles/.z
 export RUBYLIB=.:$RUBYLIB
 export PATH=/usr/local/pdflib/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
@@ -50,29 +48,44 @@ export GNUTERM='x11'
 export JPF=$HOME/Documents/jpf-core/bin/jpf
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 export PYTHONSTARTUP=$HOME/.pythonrc.py python
-export PYTHON
-
-#export DYLD_LIBRARY_PATH=/usr/local/lib
+export DYLD_LIBRARY_PATH=/usr/local/lib
 
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:*files' ignored-patterns '*?.class' '*?.o' '*?~' '*\#' '*?\*' 
 zstyle ':completion:*' group-name ''
 
 # 今いるディレクトリを補完候補から外す
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-#z.sh
-#. `brew --prefix`/etc/profile.d/z.sh
-#  function precmd () {
-#   _z --add "$(pwd -P)"
-#  }
 
+#z.sh
+. `brew --prefix`/etc/profile.d/z.sh
+  function precmd () {
+   _z --add "$(pwd -P)"
+  }
+
+# プロンプト
+# case ${UID} in
+#   0)
+#     PROMPT="%B%{[31m%}%/#%{[m%}%b "
+#     PROMPT2="%B%{[31m%}%_#%{[m%}%b "
+#     SPROMPT="%B%{[31m%}%r is correct? [n,y,a,e]:%{[m%}%b "
+#     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+#     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT} "
+#     ;;
+#   *)
+#     PROMPT="%{[32m%}[%~] %%%{[m%} "
+#     PROMPT2="%{[32m%}%_%%%{[m%} "
+#     SPROMPT="%{[33m%}%r is correct? [n,y,a,e]:%{[m%} "
+#     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+#     PROMPT="%{[37m%}${HOST%%.*} ${PROMPT} "
+#     ;;
+# esac
 
 PROMPT='%F{black}%%%f '
 RPROMPT='%F{cyan}[%~]%f'
-export PYENV_ROOT="${HOME}/.pyenv"
-if [ -d "${PYENV_ROOT}" ]; then
-    export PATH=${PYENV_ROOT}/bin:$PATH
-    eval "$(pyenv init -)"
-fi
+
+precmd () {
+  echo -ne "\e]2;${PWD}\a"
+}

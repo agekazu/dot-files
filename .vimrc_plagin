@@ -11,6 +11,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 "利用中のプラグインをBundle
 "NeoBundle 'jceb/vim-hier'
 NeoBundle 'Align'
+NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
@@ -96,6 +97,9 @@ filetype indent on
 nnoremap <silent><Leader>bi :NeoBundleInstall<CR>
 nnoremap <silent><Leader>bc :NeoBundleClean<CR>
 nnoremap <silent><Leader>bu :NeoBundleUpdate<CR>
+
+"-----vim-over設定-----"
+nnoremap <silent> <Leader>m :OverCommandLine<CR>%s/
 
 "-----vimfiller設定------"
 "netrwの代わりにvimfilerを起動
@@ -191,16 +195,6 @@ command! Uc Unite menu:commands
 "set splitright
 nmap <Leader>r <Plug>(quickrun)
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
-let g:quickrun_config['tex'] = {'command': 'output_tex.sh'}
-"let g:quickrun_config['tex'] = {
-"      \   'command' : 'output_tex.sh',
-"      \   'exec': ['%c %s', 'dvipdfmx -o %s:r.pdf %s:r.dvi']
-"      \}
-"let g:quickrun_config['tex'] = {
-"      \   'command' : 'platex',
-"      \   'exec': ['%c %s', 'dvipdfmx -o %s:r.pdf %s:r.dvi', 'zathura %s:r.pdf']
-"      \}
-
 
 "-----vim-coffee-script設定-----"
 nnoremap <Leader>w :CoffeeCompile watch vert<CR>

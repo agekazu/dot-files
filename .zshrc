@@ -28,8 +28,6 @@ export GNUPLOT_DEFAULT_GDFONT=Verdana
 #export GEM_HOME=$HOME/.rbenv/shims/gem
 #export RSENSE_HOME=/usr/local/Cellar/rsense/0.3/libexec
 #export RBENV_ROOT=$HOME/.rbenv/
-#export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 #言語設定
 #export GDFONTPATH=/Library/Fonts/
 export LANG=ja_JP.UTF-8
@@ -71,8 +69,3 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 
 PROMPT='%F{black}%%%f '
 RPROMPT='%F{cyan}[%~]%f'
-export PYENV_ROOT="${HOME}/.pyenv"
-if [ -d "${PYENV_ROOT}" ]; then
-    export PATH=${PYENV_ROOT}/bin:$PATH
-    eval "$(pyenv init -)"
-fi

@@ -16,7 +16,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias cwo="coffee -c -w -o js coffee"
 alias haml='haml -q -f html5 "$@".haml "$@".html'
-alias rbenv='nocorrect rbenv'
 alias ji='cd /Users/e115703/Dropbox/Sophomore_2nd_half/ExperimentII'
 alias mo='cd /Users/e115703/Dropbox/Sophomore_2nd_half/ModelingAndPlanning'
 alias os='cd /Users/e115703/Dropbox/Sophomore_2nd_half/OperatingSystem'

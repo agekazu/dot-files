@@ -11,6 +11,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 "利用中のプラグインをBundle
 "NeoBundle 'jceb/vim-hier'
 NeoBundle 'Align'
+NeoBundle "osyo-manga/unite-quickfix"
+NeoBundle "osyo-manga/shabadou.vim"
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'mattn/zencoding-vim'
@@ -20,6 +22,7 @@ NeoBundle 'dannyob/quickfixstatus' "quickfix
 NeoBundle 'Lokaltog/vim-powerline' "status line 
 "NeoBundle 'L9'
 "NeoBundle 'FuzzyFinder'            "grep 
+NeoBundle 'davidhalter/jedi-vim' " python 補完
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'Shougo/unite-build'     "Unite build :: make
@@ -192,14 +195,17 @@ command! Uc Unite menu:commands
 
 "-----quickrun設定-----"
 "set splitbelow "新しいウィンドウを左に開く
-"set splitright
 nmap <Leader>r <Plug>(quickrun)
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 
 "-----vim-coffee-script設定-----"
 nnoremap <Leader>w :CoffeeCompile watch vert<CR>
 
-"-----YankRing.vim設定-----"
+"-----jedi-vim設定-----"
+let g:jedi#auto_initialization = 1
+let g:jedi#rename_command = "<leader>R"
+let g:jedi#popup_on_dot = 1
+autocmd FileType python let b:did_ftplugin = 1
 
 "ウィンドウの高さ調整
 let g:yankring_window_height=13
@@ -289,3 +295,20 @@ nmap mf  :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
 "---Align
 let g:Align_xstrlen=3
 
+"saround.vim
+
+let g:quickrun_config = {
+\   "_" : {
+\       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
+\       "hook/unite_quickfix/enable_failure" : 1,
+\       "hook/close_quickfix/enable_exit" : 1,
+\       "hook/close_buffer/enable_failure" : 1,
+\       "hook/close_buffer/enable_empty_data" : 1,
+\       "outputter" : "multi:buffer:quickfix",
+\       "hook/shabadoubi_touch_henshin/enable" : 1,
+\       "hook/shabadoubi_touch_henshin/wait" : 20,
+\       "outputter/buffer/split" : ":vertical belowright 30sp",
+\       "runner" : "vimproc", 
+\       "runner/vimproc/updatetime" : 40,
+\   }
+\}

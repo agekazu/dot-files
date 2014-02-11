@@ -17,10 +17,9 @@ endif
 "各種設定
 "---------------------------------------------------------------------------
 filetype plugin indent on "filetype
-
 "autocmd FileType markdown 
 autocmd BufNewFile *.rb 0r ~/.vim/template/ruby.rb "rbのテンプレート
-autocmd BufNewFile *.py 0r ~/.vim/template/python.py "rbのテンプレート
+autocmd BufNewFile *.py 0r ~/.vim/template/python.py "pyのテンプレート
 autocmd BufNewFile *.pl 0r ~/.vim/template/perl.pl "plのテンプレート
 autocmd BufNewFile *.sh 0r ~/.vim/template/shell.sh "shのテンプレート
 autocmd BufNewFile *.html 0r ~/.vim/template/javascript.html "htmlのテンプレート
@@ -34,8 +33,6 @@ autocmd BufWritePost *.coffee silent CoffeeMake! -c -b -o js coffee | cwindow | 
 "永続的undoを有効にする
 set undodir=~/.vim/undo/
 set undofile
-
-
 set highlight=n:Directory
 set clipboard+=unnamed
 set backupskip=/tmp/*,/private/tmp/* "crontabが使うtmpディレクトリではbackupを行わない

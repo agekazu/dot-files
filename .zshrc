@@ -21,19 +21,13 @@ setopt list_packed #入力候補を詰めて表示
 setopt extended_glob #拡張表記を可能にする
 setopt auto_param_slash
 
+export PGDATA=/usr/local/var/postgres
 export GDFONTPATH=/usr/share/fonts/liberation
 export GNUPLOT_DEFAULT_GDFONT=Verdana
-#export RUBYLIB=$HOME/ruby/lib:/opt/ruby/lib
-#export RUBYLIB=/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8
-#export GEM_HOME=$HOME/.rbenv/shims/gem
-#export RSENSE_HOME=/usr/local/Cellar/rsense/0.3/libexec
-#export RBENV_ROOT=$HOME/.rbenv/
-#export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
 #言語設定
-#export GDFONTPATH=/Library/Fonts/
 export LANG=ja_JP.UTF-8
-#export _Z_DATA=$HOME/.zfiles/.z
 export RUBYLIB=.:$RUBYLIB
 export PATH=/usr/local/pdflib/bin:/opt/local/bin:/opt/local/sbin:/usr/local/sbin:$PATH
 export MANPATH=/opt/local/share/man:/opt/local/man:$MANPATH
@@ -62,17 +56,30 @@ zstyle ':completion:*' group-name ''
 # 今いるディレクトリを補完候補から外す
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-#z.sh
-#. `brew --prefix`/etc/profile.d/z.sh
-#  function precmd () {
-#   _z --add "$(pwd -P)"
-#  }
-
-
-PROMPT='%F{black}%%%f '
-RPROMPT='%F{cyan}[%~]%f'
 export PYENV_ROOT="${HOME}/.pyenv"
 if [ -d "${PYENV_ROOT}" ]; then
     export PATH=${PYENV_ROOT}/bin:$PATH
     eval "$(pyenv init -)"
 fi
+
+# VCSの情報を取得するzshの便利関数 vcs_infoを使う
+autoload -Uz vcs_info
+
+# 表示フォーマットの指定
+# %b ブランチ情報
+# %a アクション名(mergeなど)
+zstyle ':vcs_info:*' formats '[%b]'
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+
+# バージョン管理されているディレクトリにいれば表示，そうでなければ非表示
+RPROMPT="%F{cyan}[%~]%f%1(v|%F{green}%1v%f|)"
+PROMPT='%F{black}%%%f '
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+alias rake="noglob rake"

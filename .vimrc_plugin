@@ -10,40 +10,32 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 "利用中のプラグインをBundle
 "NeoBundle 'jceb/vim-hier'
-NeoBundle 'Align'
-NeoBundle "osyo-manga/unite-quickfix"
-NeoBundle "osyo-manga/shabadou.vim"
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'mattn/zencoding-vim'
-NeoBundle 'supermomonga/vimshell-pure.vim', {'depends' : 'Shougo/vimshell.vim'}
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'dannyob/quickfixstatus' "quickfix
-NeoBundle 'Lokaltog/vim-powerline' "status line 
-"NeoBundle 'L9'
-"NeoBundle 'FuzzyFinder'            "grep 
-NeoBundle 'davidhalter/jedi-vim' " python 補完
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'Shougo/unite-build'     "Unite build :: make
-NeoBundle 'ujihisa/neco-look'      "English compensation
-NeoBundle 'sudo.vim'               "vim sudo:filename
-NeoBundle 'h1mesuke/unite-outline' 
-NeoBundle 'Shougo/unite.vim'
-"NeoBundle 't9md/vim-textmanip'     "move documents
-"NeoBundleLazy "dag/vim2hs",                  {"autoload" : { "filetypes" : ["haskell"] }}
-"NeoBundleLazy "eagletmt/ghcmod-vim",         {"autoload" : { "filetypes" : ["haskell"] }}
-"NeoBundleLazy "eagletmt/unite-haddock",      {"autoload" : { "filetypes" : ["haskell"] }}
-"NeoBundleLazy "ujihisa/neco-ghc",            {"autoload" : { "filetypes" : ["haskell"] }}
-"NeoBundleLazy "ujihisa/unite-haskellimport", {"autoload" : { "filetypes" : ["haskell"] }}
-NeoBundle 'tpope/vim-fugitive'     "Gwrite-Gcommit
-NeoBundle 'YankRing.vim'
-NeoBundle 'thiynca/vim-textobj-between' , {'depends' : 'textobj-user'}
+NeoBundle 'Align' "txt整形
+NeoBundle "osyo-manga/unite-quickfix" " uniteでquickfix
+NeoBundle "osyo-manga/shabadou.vim"   " quickrun-hook
+NeoBundle 'mattn/emmet-vim'           " vimでemmet
+NeoBundle 'Shougo/neobundle.vim'      " vim-plugin管理
+NeoBundle 'Lokaltog/vim-powerline'    " status line 
+NeoBundle 'davidhalter/jedi-vim'      " python 補完
+NeoBundle 'thinca/vim-quickrun'       " プログラムの実行
+NeoBundle 'Shougo/unite-build'        " Unite build :: make
+NeoBundle 'ujihisa/neco-look'         " English compensation
+NeoBundle 'h1mesuke/unite-outline'    " 外観の表示 
+NeoBundle 'Shougo/unite.vim'          " vim 統合インタフェース
+NeoBundle 'tpope/vim-fugitive'        " Gwrite-Gcommit
+NeoBundle 'YankRing.vim'              " Yankを保存しておく
+
 NeoBundleLazy 'Shougo/neocomplcache', {
             \ 'autoload' : {
             \   'insert' : 1,
             \ }}
+
 NeoBundleLazy 'Shougo/neosnippet', {
+            \ 'autoload' : {
+            \   'insert' : 1,
+            \ }}
+
+NeoBundleLazy 'Shougo/neosnippet-snippets', {
             \ 'autoload' : {
             \   'insert' : 1,
             \ }}
@@ -65,28 +57,9 @@ NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ "VimShell", "VimShellTab", "VimShellPop", "VimShellInteractive" ] }
             \}
 
-"NeoBundle 'vim-scripts / neocomplcache-snippets_complete'
-NeoBundleLazy 'kchmck/vim-coffee-script', {
-            \   "autoload" : { "filetypes" : ["coffee"] }
-            \}
-
 NeoBundleLazy 'thinca/vim-ref', {
             \   'autoload' : { 'commands' : ['Ref'] }
             \}
-
-
-NeoBundleLazy 'glidenote/memolist.vim', {
-            \   'autoload' : { 'commands' : ["MemoNew", "MemoList", "MemoGrep"] } 
-            \}
-
-NeoBundleLazy 'matchit.zip', {
-            \   "autoload" : { "filetypes" : ["coffee"] }
-            \}
-
-NeoBundleLazy 'ZenCoding.vim', {
-            \   "autoload" : { "filetypes" : ["html", "htm", "php"] }
-            \}
-"NeoBundleLazy 'surround.vim'
 
 NeoBundleLazy 'gregsexton/gitv',{
             \   'autoload' : { 'commands' : ['Gitv'] } 
@@ -148,9 +121,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/snippets/'
-" Tell Neosnippet about the other snippets
-"let g:neosnippet#enable_snipmate_compatibility = 1
-"let g:neosnippet#snippets_directory='~/.vim/snippets'
 
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd! FileType markdown hi! def link markdownItalic Normal

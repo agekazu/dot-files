@@ -13,7 +13,6 @@ SAVEHIST=10000
 bindkey -e
 
 source ~/perl5/perlbrew/etc/bashrc
-source $ZDOTDIR/.zaliases
 
 setopt correct #近いコマンドを補正
 setopt hist_ignore_dups #同じコマンドを記憶しない

@@ -4,9 +4,9 @@ let mapleader = " "
 "--------------------------------------------------------------------------
 "分割ファイル読み込み
 "---------------------------------------------------------------------------
-".vimrc_plaginがある場合、読み込む
-if filereadable(expand('~/.vimrc_plagin'))
-  source ~/.vimrc_plagin
+".vimrc_pluginがある場合、読み込む
+if filereadable(expand('~/.vimrc_plugin'))
+  source ~/.vimrc_plugin
 endif
 
 ".vimrc_commandsがある場合読み込む

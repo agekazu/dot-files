@@ -8,9 +8,7 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
-"利用中のプラグインをBundle
-"NeoBundle 'jceb/vim-hier'
-NeoBundle 'Align' "txt整形
+NeoBundle 'Align'                     "txt整形
 NeoBundle "osyo-manga/unite-quickfix" " uniteでquickfix
 NeoBundle "osyo-manga/shabadou.vim"   " quickrun-hook
 NeoBundle 'mattn/emmet-vim'           " vimでemmet
@@ -24,6 +22,8 @@ NeoBundle 'h1mesuke/unite-outline'    " 外観の表示
 NeoBundle 'Shougo/unite.vim'          " vim 統合インタフェース
 NeoBundle 'tpope/vim-fugitive'        " Gwrite-Gcommit
 NeoBundle 'YankRing.vim'              " Yankを保存しておく
+NeoBundle 'nathanaelkane/vim-indent-guides' " indentを解りやすくハイライト表示
+
 
 NeoBundleLazy 'Shougo/neocomplcache', {
             \ 'autoload' : {
@@ -69,21 +69,18 @@ NeoBundleLazy 'gregsexton/gitv',{
 filetype plugin indent on
 filetype indent on
 
-"-----neobundle設定-----"
+"-----neobundle-----"
 nnoremap <silent><Leader>bi :NeoBundleInstall<CR>
 nnoremap <silent><Leader>bc :NeoBundleClean<CR>
 nnoremap <silent><Leader>bu :NeoBundleUpdate<CR>
 
-"-----vim-over設定-----"
-nnoremap <silent> <Leader>m :OverCommandLine<CR>%s/
-
-"-----vimfiller設定------"
+"-----vimfiller------"
 "netrwの代わりにvimfilerを起動
 let g:vimfiler_as_default_explorer = 1
 "safemode無効化
 let g:vimfiler_safe_mode_by_default = 0
 
-"-----neocomplcache設定------"
+"-----neocomplcache------"
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -94,14 +91,13 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_underbar_completion = 1
 
-"-----neosnippet設定------"
+"-----neosnippet------"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>" 
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -163,20 +159,16 @@ command! Ug Unite grep
 command! Uo Unite outline
 command! Uc Unite menu:commands
 
-"-----quickrun設定-----"
+"-----quickrun-----"
 "set splitbelow "新しいウィンドウを左に開く
 nmap <Leader>r <Plug>(quickrun)
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 
-"-----vim-coffee-script設定-----"
+"-----vim-coffee-script-----"
 nnoremap <Leader>w :CoffeeCompile watch vert<CR>
 
-"-----jedi-vim設定-----"
-let g:jedi#auto_initialization = 1
-let g:jedi#rename_command = "<leader>R"
-let g:jedi#popup_on_dot = 1
-autocmd FileType python let b:did_ftplugin = 1
 
+"-----yank-ring-----"
 "ウィンドウの高さ調整
 let g:yankring_window_height=13
 "保存先の変更
@@ -185,23 +177,19 @@ let g:yankring_history_file='.yankring_history'
 "yrでYRShowコマンドを入力
 nnoremap <Leader>yr :YRShow<CR>
 
-"-----vim-ref設定-----"
+"-----vim-ref-----"
 nmap <Leader>ra :Ref alc 
 nmap <Leader>rr :Ref refe
 nmap <Leader>ru :Unite ref/refe
 nmap <Leader>rp :Ref phpmanual 
 
+"-----ref-----"
 " 入力モードで開始する
 let g:ref_rby_cmd = "~/Documents/Reference/rubyrefm/refe-1_9_2" "Rubyのrefefileパス
 let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
 let g:ref_alc_start_linenumber = 39 " 表示する行数
 
-"-----alc設定-----"
-ret g:ref_alc_cmd = 'w3m -dump %s' "w3mを使う
-let g:ref_alc_start_linenumber = 3 "表示開始位置
-let g:ref_alc_start_linenumber = 39 " 表示する行数
-
-"-----VimShell設定----"
+"-----VimShell----"
 let g:vimshell_interactive_update_time = 10
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
@@ -211,62 +199,10 @@ nnoremap <silent><Leader>vp :VimShellPop<CR>
 nnoremap <silent><Leader>vsc :VimShellCreate<CR>
 nnoremap <silent><Leader>vt :VimShellTab<CR>
 
-
-"----Zencoding設定----"
-let g:user_zen_settings = {
-            \       'lang' : 'ja',
-            \}
-let g:use_zen_complete_tag = 1
-
-"---rsense設定---"
-let g:rsenseHome = "/usr/local/Cellar/rsense/0.3/libexec"
-
-"vim-textmanip'
-" 選択したテキストの移動
-xmap <C-j> <Plug>(textmanip-move-down)
-xmap <C-j> <Plug>(textmanip-move-down)
-xmap <C-k> <Plug>(textmanip-move-up)
-xmap <C-h> <Plug>(textmanip-move-left)
-xmap <C-l> <Plug>(textmanip-move-right)
-
-"---qfixgrep
-set grepprg=grep
-
-"xmap <C-k> <Plug>(textmanip-move-up)
-"xmap <C-h> <Plug>(textmanip-move-left)
-"xmap <C-l> <Plug>(textmanip-move-right)
-
-"---qfixgrep
-set grepprg=grep
-let MyGrep_ExcludeReg = '[~#]$\|\.app$\|\.o$\|\.pdf$\|\.xls$' " ignorefile
-let g:MyGrepDefault_Ignorecase = 1 " 大文字小文字を区別しない
-
-"---open-browser
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
-
-"---Fugitive
-nnoremap <Leader>gd :<C-u>Gdiff<CR>
-nnoremap <Leader>gs :<C-u>Gstatus<CR>
-nnoremap <Leader>gl :<C-u>Glog<CR>
-nnoremap <Leader>ga :<C-u>Gwrite<CR>
-nnoremap <Leader>gc :<C-u>Gcommit<CR>
-nnoremap <Leader>gC :<C-u>Git commit --amend<CR>
-nnoremap <Leader>gb :<C-u>Gblame<CR>
-
-"---jceb/vim-hier
-execute "highlight ucurl_my gui=undercurl guisp=Red"
-let g:hier_highlight_group_qf = "ucurl_my"
-
-"---FuzzyFinder
-nmap mf  :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
-
-"---Align
+"-----Align----"
 let g:Align_xstrlen=3
 
-"saround.vim
-
+"-----saround.vim----"
 let g:quickrun_config = {
 \   "_" : {
 \       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
@@ -282,3 +218,10 @@ let g:quickrun_config = {
 \       "runner/vimproc/updatetime" : 40,
 \   }
 \}
+
+"-----vim-indent-guides----"
+let g:indent_guides_auto_colors=0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_guide_size=1

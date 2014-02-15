@@ -1,4 +1,3 @@
-"<Leader>=" "
 let mapleader = " "
 
 "--------------------------------------------------------------------------
@@ -13,6 +12,7 @@ endif
 if filereadable(expand('~/.vimrc_commands'))
   source ~/.vimrc_commands
 endif
+
 "---------------------------------------------------------------------------
 "各種設定
 "---------------------------------------------------------------------------
@@ -54,19 +54,8 @@ set fileformat=unix
 set fileformats=unix,dos,mac
 set wildignore=*.o,a.out,*pdf,*git,*hg,*eps,*png
 
-" autocmds
-
-"augroup TeX
-"  autocmd!
-"  autocmd BufNewFile *.tex setl filetype=tex
-"  autocmd BufRead    *.tex setl filetype=tex
-"  autocmd FileType tex nnoremap <C-K> :make<CR>
-"  set shiftwidth=2 
-"augroup END
-
-
 "---------------------------------------------------------------------------
-"レイアウトの設定
+" レイアウトの設定
 "---------------------------------------------------------------------------
 set number " 行番号表示
 set visualbell " ビープ音の代わりにビジュアルベル(画面フラッシュ)を用いる
@@ -77,8 +66,6 @@ set tabstop=4 " タブをスペース2文字分にする
 set list 
 set listchars=tab:>- " tab可視化
 set background=light
-let &t_SI = "\e]50;CursorShape=1\x7"
-let &t_EI = "\e]50;CursorShape=0\x7"
 
 " ステータスライン
 set cmdheight=2 " コマンドラインに使われる画面上の行数。
@@ -87,7 +74,7 @@ set wildmenu " コマンドライン補完を拡張モードで実行
 set showcmd " コマンドを最下層に表示
 
 "---------------------------------------------------------------------------
-"Color設定
+" Color設定
 "---------------------------------------------------------------------------
 syntax on
 let versdiff_no_resize=1 " バックアップファイルとの比較でウィンドウのサイズを変更する場合は0
@@ -95,23 +82,20 @@ highlight Visual term=reverse cterm=reverse ctermbg=7 gui=reverse guifg=black
 highlight SpellBad term=bold ctermfg=black "スペルミスの時
 highlight linenr ctermfg = lightcyan "行番号の色を変える(色はlightcyan)
 highlight Comment ctermfg = 2 "コメントの色
-"highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey "ステータスラインの色
 highlight Pmenu      ctermbg = grey
 highlight PmenuSel   ctermbg = yellow
 highlight PMenuSbar  ctermbg = grey
 highlight PmenuThumb ctermfg = black
 
-"カーソルのある行を強調表示
-"set cursorline 
-"highlight CursorLine term=reverse cterm=reverse
-"highlight CursorColumn term=reverse cterm=reverse
-"全角スペースの表示
+" 全角スペースの表示
 highlight ZenkakuSpace cterm=underline ctermfg=lightred guibg=darkgray
 match ZenkakuSpace /　/
 
+" colorscheme
+colorscheme default
 
 "---------------------------------------------------------------------------
-"ショートカットキーの設定
+" ショートカットキーの設定
 "---------------------------------------------------------------------------
 "----全モードでのキーリマップ----
 map gj <C-w>j
@@ -125,10 +109,10 @@ nnoremap <S-Tab> gt
 nnoremap <Tab><Tab> gT
 noremap <CR> i<Enter> <ESC>
 
-"gpでペーストしたテキストを再選択できるようにする
+" gpでペーストしたテキストを再選択できるようにする
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-"ヤンクした文字列でカーソル位置の単語を置換するコマンド
-"インデント選択後再度ヴィジュアルモードで選択できるようにする
+" ヤンクした文字列でカーソル位置の単語を置換するコマンド
+" インデント選択後再度ヴィジュアルモードで選択できるようにする
 nnoremap <silent> <silent> ciy ciw<C-r>0<ESC>:let@1<CR>:nohr<CR>
 
 "----インサートモードでのキーリマップ----
@@ -136,6 +120,6 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
 
-"線を描画する短縮入力を定義
+" 線を描画する短縮入力を定義
 inoreabbrev <expr> wla repeat('*',80 - col('.'))
 inoreabbrev <expr> wlb repeat('-',80 - col('.'))

@@ -3,84 +3,110 @@
 "
 set nocompatible
 filetype off
-"" NeoBundle'''
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
-NeoBundle 'Align'                     "txt整形
-NeoBundle "osyo-manga/unite-quickfix" " uniteでquickfix
-NeoBundle "osyo-manga/shabadou.vim"   " quickrun-hook
-NeoBundle 'mattn/emmet-vim'           " vimでemmet
-NeoBundle 'Shougo/neobundle.vim'      " vim-plugin管理
-NeoBundle 'Lokaltog/vim-powerline'    " status line 
-NeoBundle 'davidhalter/jedi-vim'      " python 補完
-NeoBundle 'thinca/vim-quickrun'       " プログラムの実行
-NeoBundle 'Shougo/unite-build'        " Unite build :: make
-NeoBundle 'ujihisa/neco-look'         " English compensation
-NeoBundle 'h1mesuke/unite-outline'    " 外観の表示 
-NeoBundle 'Shougo/unite.vim'          " vim 統合インタフェース
-NeoBundle 'tpope/vim-fugitive'        " Gwrite-Gcommit
-NeoBundle 'YankRing.vim'              " Yankを保存しておく
-NeoBundle 'nathanaelkane/vim-indent-guides' " indentを解りやすくハイライト表示
 
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundle 'Align'                           " txt整形
+NeoBundle 'nathanaelkane/vim-indent-guides' " vimのインデントを解りやすく
+NeoBundle 'osyo-manga/unite-quickfix'       " uniteでquickfix
+NeoBundle 'osyo-manga/shabadou.vim'         " quickrun-hook
+NeoBundle 'Lokaltog/vim-powerline'          " status line
+NeoBundle 'thinca/vim-quickrun'             " プログラムの実行
+NeoBundle 'Shougo/unite-build'              " Unite build :: make
+NeoBundle 'ujihisa/neco-look'               " English compensation
+NeoBundle 'h1mesuke/unite-outline'          " 外観の表示
+NeoBundle 'Shougo/unite.vim'                " vim 統合インタフェース
+NeoBundle 'tpope/vim-fugitive'              " Gwrite-Gcommit
+NeoBundle 'YankRing.vim'                    " Yankを保存しておく
+NeoBundle 'kchmck/vim-coffee-script'        " syntax + 自動compile
+NeoBundle 'claco/jasmine.vim'               " js BDDツール
+NeoBundle 'pangloss/vim-javascript'         " jsのインデントを揃える
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleLazy 'Shougo/neomru.vim'
 
 NeoBundleLazy 'Shougo/neocomplcache', {
             \ 'autoload' : {
-            \   'insert' : 1,
+            \ 'insert' : 1,
+            \ }}
+
+NeoBundleLazy 'Shougo/neocomplcache-rsense', {
+            \ 'autoload' : {
+            \ 'insert' : 1,
             \ }}
 
 NeoBundleLazy 'Shougo/neosnippet', {
             \ 'autoload' : {
-            \   'insert' : 1,
+            \ 'insert' : 1,
             \ }}
 
 NeoBundleLazy 'Shougo/neosnippet-snippets', {
             \ 'autoload' : {
-            \   'insert' : 1,
+            \ 'insert' : 1,
             \ }}
 
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    },
+            \ 'windows' : 'make -f make_mingw32.mak',
+            \ 'cygwin' : 'make -f make_cygwin.mak',
+            \ 'mac' : 'make -f make_mac.mak',
+            \ 'unix' : 'make -f make_unix.mak',
+            \ },
             \ }
 
-NeoBundleLazy 'Shougo/vimfiler', {
-            \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer" ] }
-            \}
-
 NeoBundleLazy 'Shougo/vimshell', {
-            \   'autoload' : { 'commands' : [ "VimShell", "VimShellTab", "VimShellPop", "VimShellInteractive" ] }
-            \}
+            \ 'autoload' : { 'commands' : [ "VimShell", "VimShellTab", "VimShellPop", "VimShellInteractive" ] }
+            \ }
 
 NeoBundleLazy 'thinca/vim-ref', {
-            \   'autoload' : { 'commands' : ['Ref'] }
+            \ 'autoload' : { 'commands' : ['Ref'] }
+            \ }
+
+NeoBundleLazy 'gregsexton/gitv', {
+            \ 'autoload' : { 'commands' : ['Gitv'] }
+            \ }
+
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+            \ 'autoload':{'filetypes':['javascript']}
+            \ }
+
+NeoBundleLazy 'kannokanno/previm', {
+            \ 'autoload' : {'filetypes' : ['markdown']}
             \}
 
-NeoBundleLazy 'gregsexton/gitv',{
-            \   'autoload' : { 'commands' : ['Gitv'] } 
+NeoBundleLazy 'plasticboy/vim-markdown', {
+            \ 'autoload':{'filetypes' : ['markdown']}
             \}
 
+NeoBundleLazy 'tyru/open-browser.vim', {
+            \ 'autoload':{'filetypes' : ['markdown']}
+            \}
 
 filetype plugin indent on
 filetype indent on
 
-"-----neobundle-----"
+"----Align----
+let g:Align_xstrlen=3
+
+"----vim-indent-guides----"
+" vim立ち上げたときに、自動的にvim-indent-guidesをオンにする
+let g:indent_guides_enable_on_vim_startup=1
+" ガイドをスタートするインデントの量
+" let g:indent_guides_start_level=2
+" 自動カラーを無効にする
+let g:indent_guides_auto_colors=0
+" ガイドの幅
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+
+"----neobundle----
 nnoremap <silent><Leader>bi :NeoBundleInstall<CR>
 nnoremap <silent><Leader>bc :NeoBundleClean<CR>
 nnoremap <silent><Leader>bu :NeoBundleUpdate<CR>
 
-"-----vimfiller------"
-"netrwの代わりにvimfilerを起動
-let g:vimfiler_as_default_explorer = 1
-"safemode無効化
-let g:vimfiler_safe_mode_by_default = 0
-
-"-----neocomplcache------"
+"----neocomplcache----
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -90,16 +116,15 @@ let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_force_overwrite_completefunc = 1
 
-"-----neosnippet------"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>" 
+"----neosnippet----
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)"
             \: pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -118,40 +143,30 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/snippets/'
 
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd! FileType markdown hi! def link markdownItalic Normal
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"----shabadou.vim----"
+let g:quickrun_config = { "_" : 
+                          \ { "hook/close_unite_quickfix/enable_hook_loaded" : 1,
+                          \   "hook/close_quickfix/enable_exit" : 1,
+                          \   "outputter" : "multi:buffer:quickfix",
+                          \   "hook/shabadoubi_touch_henshin/enable" : 1,
+                          \   "hook/shabadoubi_touch_henshin/wait" : 20,
+                          \   "outputter/buffer/split" : ":vertical belowright 30sp",
+                          \   "runner" : "vimproc",
+                          \   "runner/vimproc/updatetime" : 40
+                          \ }}
 
-
-"-----unite.vim-----'
+"----unite.vim----
 " Uniteを開く時、垂直分割で開く
-let g:unite_enable_split_vertically=1
-
-
-" バッファ一覧
+let g:unite_enable_split_vertically=1" バッファ一覧
 noremap <Leader>b :<C-u>Unite buffer<CR>
-" grep
-nnoremap <Leader>g :<C-u><C-g> :<C-u>Unite grep<CR>
-" 最近使ったファイルの一覧
+nnoremap <Leader>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <Leader>wg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 noremap <Leader>s :<C-u>Unite file_mru<CR>
-" ファイル一覧
-noremap <Leader>f :<C-u>Unite -buffer-name=file file<CR>
-" レジスタ一覧
-nnoremap <Leader><Leader>r :<C-u>Unite -buffer-name=register register<CR>
-" 常用セット
+noremap <Leader>f :<C-u>Unite -buffer-name=file file -default-action=tabopen<CR> 
 nnoremap <Leader>a :<C-u>Unite buffer file_mru<CR>
-" アウトライン
 nnoremap  <Leader>ol : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
-" 全部乗せ
 nnoremap <Leader>all :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
 command! Uf Unite file
 command! Ur Unite register
 command! Um Unite file_mru
@@ -159,16 +174,15 @@ command! Ug Unite grep
 command! Uo Unite outline
 command! Uc Unite menu:commands
 
-"-----quickrun-----"
-"set splitbelow "新しいウィンドウを左に開く
+"----quickrun----"
 nmap <Leader>r <Plug>(quickrun)
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 
-"-----vim-coffee-script-----"
+"----vim-coffee-script----"
 nnoremap <Leader>w :CoffeeCompile watch vert<CR>
 
 
-"-----yank-ring-----"
+"----yank-ring----"
 "ウィンドウの高さ調整
 let g:yankring_window_height=13
 "保存先の変更
@@ -178,16 +192,24 @@ let g:yankring_history_file='.yankring_history'
 nnoremap <Leader>yr :YRShow<CR>
 
 "-----vim-ref-----"
-nmap <Leader>ra :Ref alc 
+nmap <Leader>ra :Ref alc
 nmap <Leader>rr :Ref refe
 nmap <Leader>ru :Unite ref/refe
-nmap <Leader>rp :Ref phpmanual 
+nmap <Leader>rp :Ref phpmanual
+nmap <Leader>je :Ref webdict je
+nmap <Leader>ej :Ref webdict ej
+" 辞書定義
+let g:ref_source_webdict_sites = {
+\   'je': {
+\     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
+\   },
+\   'ej': {
+\     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
+\   },
+\ }
 
-"-----ref-----"
-" 入力モードで開始する
-let g:ref_rby_cmd = "~/Documents/Reference/rubyrefm/refe-1_9_2" "Rubyのrefefileパス
-let g:ref_phpmanual_path = '/Users/e115703/Documents/Reference/phprefm/'
-let g:ref_alc_start_linenumber = 39 " 表示する行数
+" デフォルトサイト
+let g:ref_source_webdict_sites.default = 'ej'
 
 "-----VimShell----"
 let g:vimshell_interactive_update_time = 10
@@ -198,27 +220,3 @@ autocmd FileType vimshell setlocal nonumber
 nnoremap <silent><Leader>vp :VimShellPop<CR>
 nnoremap <silent><Leader>vsc :VimShellCreate<CR>
 nnoremap <silent><Leader>vt :VimShellTab<CR>
-
-"-----Align----"
-let g:Align_xstrlen=3
-
-"-----shabadou.vim----"
-let g:quickrun_config = {
-\   "_" : {
-\       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
-\       "hook/close_quickfix/enable_exit" : 1,
-\       "outputter" : "multi:buffer:quickfix",
-\       "hook/shabadoubi_touch_henshin/enable" : 1,
-\       "hook/shabadoubi_touch_henshin/wait" : 20,
-\       "outputter/buffer/split" : ":vertical belowright 30sp",
-\       "runner" : "vimproc", 
-\       "runner/vimproc/updatetime" : 40,
-\   }
-\}
-
-"-----vim-indent-guides----"
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=233
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=234
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=1

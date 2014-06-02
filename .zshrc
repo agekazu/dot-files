@@ -5,6 +5,8 @@ compinit
 # dirをpush
 setopt auto_pushd
 
+setopt HIST_IGNORE_DUPS
+
 #コマンド履歴を記憶
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -38,8 +40,9 @@ precmd () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    echo -n "\e]2;$(pwd)\a"
 }
 
 # バージョン管理されているディレクトリにいれば表示，そうでなければ非表示
-PROMPT='%F{white}%%%f '
-RPROMPT="%f%1(v|%F{green}%1v%f|)%F{cyan}[%~]"
+PROMPT='%f%1(v|%F{green}%1v%f|)%F{cyan}%%%f '
+RPROMPT="%F{cyan}[%~]"

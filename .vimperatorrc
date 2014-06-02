@@ -10,7 +10,7 @@ noremap l 3<Right>
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
 "guiなし"
-set gui=none
+"set gui=none
 
 " shortcut mybokmarks
 
@@ -53,15 +53,11 @@ noremap <C-t> :copy text<CR><CR>
 noremap <C-m> :copy markdown<CR><CR>
 noremap <C-r> :copy redmine<CR><CR>
 noremap <C-e> :copy tex<CR><CR>
+noremap <C-h> :copy anchor<CR><CR>
 
 " quick bookmark
-qmark t https://trello.com/b/UebbGVol/rice-american-s-bord
-qmark k http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/
-qmark w https://webclass.cc.u-ryukyu.ac.jp/
-qmark r https://redmine.ie.u-ryukyu.ac.jp/projects/ie-server/issues?set_filter=1&tracker_id=23
 qmark g https://github.com/rice-american
 qmark o http://gunosy.com/
-qmark d http://www.la.osn.u-ryukyu.ac.jp/admin/report/
-qmark a http://animetick.net/ticket/list
 qmark b http://rice-american.github.io/
-
+qmark l http://www.lgtm.in/g
+qmark u https://www.tumblr.com/blog/rice-american

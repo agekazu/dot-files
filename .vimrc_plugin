@@ -23,6 +23,7 @@ NeoBundle 'YankRing.vim'                    " Yankを保存しておく
 NeoBundle 'kchmck/vim-coffee-script'        " syntax + 自動compile
 NeoBundle 'claco/jasmine.vim'               " js BDDツール
 NeoBundle 'pangloss/vim-javascript'         " jsのインデントを揃える
+NeoBundle 'mhinz/vim-startify'              " vim起動画面に直近のファイルを表示
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundleLazy 'Shougo/neomru.vim'
@@ -191,7 +192,7 @@ let g:yankring_history_file='.yankring_history'
 "yrでYRShowコマンドを入力
 nnoremap <Leader>yr :YRShow<CR>
 
-"-----vim-ref-----"
+"----vim-ref----"
 nmap <Leader>ra :Ref alc
 nmap <Leader>rr :Ref refe
 nmap <Leader>ru :Unite ref/refe
@@ -211,7 +212,7 @@ let g:ref_source_webdict_sites = {
 " デフォルトサイト
 let g:ref_source_webdict_sites.default = 'ej'
 
-"-----VimShell----"
+"----VimShell----"
 let g:vimshell_interactive_update_time = 10
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 
@@ -220,3 +221,11 @@ autocmd FileType vimshell setlocal nonumber
 nnoremap <silent><Leader>vp :VimShellPop<CR>
 nnoremap <silent><Leader>vsc :VimShellCreate<CR>
 nnoremap <silent><Leader>vt :VimShellTab<CR>
+
+"----mhinz/vim-startify----
+let g:startify_custom_header =
+  \ map(split(system('date'), '\n'), '"   ". v:val') + ['','']
+let g:startify_custom_indices = ['a', 'b', 'c', 'd', 'f', 'g',
+                               \ 'h', 'i', 'l', 'm', 'n', 'o',
+                               \ 'p', 'r', 's', 't', 'u', 'v',
+                               \ 'w', 'x', 'y', 'z']

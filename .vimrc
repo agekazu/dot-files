@@ -27,7 +27,7 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 
 
 autocmd FileType * set tabstop=4
-autocmd filetype html,coffee,javascript,ruby,markdownm,tex set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+autocmd filetype html,coffee,javascript,ruby,markdownm,tex,eruby set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
 "永続的undoを有効にする
 set undodir=~/.vim/undo/

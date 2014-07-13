@@ -18,6 +18,7 @@ NeoBundle 'Shougo/unite-build'              " Unite build :: make
 NeoBundle 'ujihisa/neco-look'               " English compensation
 NeoBundle 'h1mesuke/unite-outline'          " 外観の表示
 NeoBundle 'Shougo/unite.vim'                " vim 統合インタフェース
+NeoBundle 'Shougo/neomru.vim'               " file_mru
 NeoBundle 'tpope/vim-fugitive'              " Gwrite-Gcommit
 NeoBundle 'YankRing.vim'                    " Yankを保存しておく
 NeoBundle 'kchmck/vim-coffee-script'        " syntax + 自動compile
@@ -26,7 +27,6 @@ NeoBundle 'pangloss/vim-javascript'         " jsのインデントを揃える
 NeoBundle 'mhinz/vim-startify'              " vim起動画面に直近のファイルを表示
 
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleLazy 'Shougo/neomru.vim'
 
 NeoBundleLazy 'Shougo/neocomplcache', {
             \ 'autoload' : {
@@ -92,15 +92,12 @@ filetype indent on
 let g:Align_xstrlen=3
 
 "----vim-indent-guides----"
-" vim立ち上げたときに、自動的にvim-indent-guidesをオンにする
-let g:indent_guides_enable_on_vim_startup=1
-" ガイドをスタートするインデントの量
-" let g:indent_guides_start_level=2
-" 自動カラーを無効にする
-let g:indent_guides_auto_colors=0
-" ガイドの幅
-let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_guide_size=1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
 
 "----neobundle----
 nnoremap <silent><Leader>bi :NeoBundleInstall<CR>
@@ -162,7 +159,6 @@ let g:unite_enable_split_vertically=1" バッファ一覧
 noremap <Leader>b :<C-u>Unite buffer<CR>
 nnoremap <Leader>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <Leader>wg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-noremap <Leader>s :<C-u>Unite file_mru<CR>
 noremap <Leader>f :<C-u>Unite -buffer-name=file file -default-action=tabopen<CR> 
 nnoremap <Leader>a :<C-u>Unite buffer file_mru<CR>
 nnoremap  <Leader>ol : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>

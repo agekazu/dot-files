@@ -14,8 +14,6 @@ SAVEHIST=10000
 
 bindkey -e
 
-source ~/perl5/perlbrew/etc/bashrc
-
 setopt correct #近いコマンドを補正
 setopt hist_ignore_dups #同じコマンドを記憶しない
 setopt list_packed #入力候補を詰めて表示
@@ -24,7 +22,7 @@ setopt auto_param_slash
 
 zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*:*files' ignored-patterns '*?.class' '*?.o' '*?~' '*\#' '*?\*' 
+zstyle ':completion:*:*files' ignored-patterns '*?.class' '*?.o' '*?~' '*\#' '*?\*'
 zstyle ':completion:*' group-name ''
 
 
